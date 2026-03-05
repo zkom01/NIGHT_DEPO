@@ -3,28 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>index</title>
+    <title>Název webu</title>
 </head>
 <body>
 
-    <h1>Index</h1>
+    <h1>Služby</h1>
     <?php require 'assets/header.php'; ?>
 
     <main>
-        <section>
-            <h2>Sekce 1</h2>
-            <p>Obsah sekce 1</p>
-            <a href="zaci.php">Seznam žáků</a>
-        </section>
         
         <section>
-            <h2>Sekce 2</h2>
-            <p>Obsah sekce 2</p>
+            <input type="date" placeholder="Zadejte heslo">
         </section>
+
+        <section>
+            <h2>Sekce</h2>
+            <img src="img/hl3.jpg" alt="hl3" style="width: 500px; height: auto;">
+        </section>
+
     </main>
 
     <?php require 'assets/footer.php'; ?>
 
 </body>
 </html>
-
