@@ -1,3 +1,8 @@
+<?php
+    require 'assets/database.php'; // připojíme se k databázi
+?>
+
+
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -7,50 +12,32 @@
 </head>
 <body>
 
-    <h1>Detail studenta</h1>
     <?php require 'assets/header.php'; ?> <!-- přidáme hlavičku stránky -->
 
     <main>
+        <section class="main_heading">
+            <h1>Informace o studentovi</h1>
+        </section>
+
         <section>
             <?php
-                require 'assets/dbconnect.php'; // připojíme se k databázi
+
+                $conn = connectionDB(); // zavoláme funkci pro připojení k databázi a uložíme připojení do proměnné $conn
 
                 $id = $_GET['id']; // získáme id z URL
 
-                if (!is_numeric($id)) : // zkontrolujeme, zda je id číslo
-                    echo "Neplatné ID studenta.";
-                    exit; // ukončí skript, pokud id není číslo
-                endif;
-
-                $sql = "SELECT *
-                        FROM student
-                        WHERE id = $id
-                        "; // dotaz pro získání informací o konkrétním studentovi
-
-                try {
-                    $result = mysqli_query($conn, $sql); // provedeme dotaz a získáme výsledek
-                } 
-                catch (Exception $e) { // pokud dojde k chybě při provádění dotazu, zachytíme výjimku a vypíšeme chybovou zprávu
-            ?>
-                <p>Chyba při provádění dotazu: <? echo $e->getMessage() ?></p> <!-- vypíšeme chybovou zprávu, pokud dojde k chybě -->
-            <?php
-                exit; // ukončí skript, pokud dojde k chybě
-            }?>
-
-            <?php 
-                $student = mysqli_fetch_assoc($result); // získáme informace o studentovi jako asociativní pole // 
+                $result = getOneStudent($conn, $id); // zavoláme funkci pro získání informací o studentovi a uložíme výsledek do proměnné $result
             ?>
 
-            <?php if ($student): ?>
-                <h2><?= $student['first_name'] . " " . $student['second_name'] ?></h2>
-                <p>Věk: <?= $student['age'] ?></p>
-                <p>Život: <?= $student['life'] ?></p>
-                <p>Škola: <?= $student['college'] ?></p>
+            <?php if ($result): ?>
+                <h2><?= $result['first_name'] . " " . $result['second_name'] ?></h2>
+                <p>Věk: <?= $result['age'] ?></p>
+                <p>Život: <?= $result['life'] ?></p>
+                <p>Škola: <?= $result['college'] ?></p>
             <?php else: ?>
                     <p>Student nenalezen.</p>
             <?php endif ?>
         </section>
-
     </main>
 
     <?php require 'assets/footer.php'; ?>

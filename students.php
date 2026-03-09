@@ -1,20 +1,9 @@
 <?php
-    require 'assets/dbconnect.php'; // provede připojení k databázi a uloží připojení do proměnné $conn
+    require 'assets/database.php'; // připojíme se k databázi
 
-    $sql = "SELECT id, first_name, second_name
-            FROM student
-            WHERE id > 0
-            ";
-
-    try {
-        $result = mysqli_query($conn, $sql);
-    } 
-    catch (Exception $e) {
-        echo "Chyba při provádění dotazu: " . $e->getMessage();
-        exit; // ukončí skript, pokud dojde k chybě
-    }
-
-    $students = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $conn = connectionDB(); // zavoláme funkci pro připojení k databázi a uložíme připojení do proměnné $conn
+    
+    $students = allStudents($conn); // zavoláme funkci pro získání všech žáků a uložíme výsledek do proměnné $students
 ?>
 
 <!DOCTYPE html>
@@ -26,10 +15,17 @@
 </head>
 <body>
 
-    <h1>Žáci</h1>
     <?php require 'assets/header.php'; ?>
 
     <main>
+        <section class="main_heading">
+            <h1>Žáci</h1>
+        </section>
+
+        <section>
+            <a href="add_student.php">Přidat žáka</a>
+        </section>
+
         <section>
             <ul>
 
@@ -40,9 +36,7 @@
                 <a href="one_student.php?id=<?= $one_student['id'] ?>">Detail</a>
             <?php endforeach; ?>
 
-            </ul>
-            
-            
+            </ul>           
         </section>
     </main>
 

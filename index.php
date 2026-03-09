@@ -7,19 +7,11 @@
 </head>
 <body>
 
-    <h1>Index</h1>
     <?php require 'assets/header.php'; ?>
 
     <main>
-        <section>
-            <h2>Sekce 1</h2>
-            <p>Obsah sekce 1</p>
-            <a href="zaci.php">Seznam žáků</a>
-        </section>
-        
-        <section>
-            <h2>Sekce 2</h2>
-            <p>Obsah sekce 2</p>
+        <section class="main_heading">
+            <h1>Index</h1>
         </section>
     </main>
 
