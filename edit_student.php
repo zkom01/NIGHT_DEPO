@@ -1,0 +1,66 @@
+<?php
+    require 'assets/database.php'; // načteme soubor s funkcemi pro práci s databází
+    session_start(); // spustíme session pro správu uživatelských relací
+
+    $conn = connectionDB(); // zavoláme funkci pro připojení k databázi a uložíme připojení do proměnné $conn
+    $id = $_GET['id']; // získáme ID studenta z URL pro načtení jeho informací do formuláře
+    $one_student = getOneStudent($conn, $id); // získáme informace o studentovi pro předvyplnění formuláře
+
+    if ($one_student) { // pokud se nám podařilo získat informace o studentovi, uložíme je do proměnných pro předvyplnění formuláře
+        $first_name = $one_student['first_name'];
+        $second_name = $one_student['second_name'];
+        $age = $one_student['age'];
+        $life = $one_student['life'];
+        $college = $one_student['college'];
+    } else {
+        $_SESSION['success_message'] = "Student s ID $id nebyl nalezen."; // Uložíme do session zprávu o nenalezení studenta, aby se zobrazila na stránce s detaily studenta
+        header("Location: one_student.php?id=" . $id); // přesměrujeme na stránku s detaily studenta
+        exit; // ukončí skript, aby se zabránilo dalšímu vykonávání po přesměrování
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
+
+         // získáme data z formuláře
+        $first_name = $_POST['first_name'];
+        $second_name = $_POST['second_name'];
+        $age = $_POST['age'];
+        $life = $_POST['life'];
+        $college = $_POST['college'];
+
+        $result = editStudent($conn, $id, $first_name, $second_name, $age, $life, $college); // zavoláme funkci pro úpravu informací o studentovi a uložíme výsledek do proměnné $result
+
+        if ($result) {
+            // echo "<div class='error_message'>" . htmlspecialchars($result) . "</div>"; // pokud funkce vrátí zprávu, zobrazíme ji
+            $_SESSION['success_message'] = $result; // Uložíme do session zprávu o úspěšném upravení studenta, aby se zobrazila na stránce s detaily studenta
+            header("Location: one_student.php?id=" . $id); // přesměrujeme na stránku s detaily studenta
+            exit; // ukončí skript, aby se zabránilo dalšímu vykonávání po přesměrování
+        }
+    }
+    
+?>
+
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upravit žáka</title>
+</head>
+
+<body>
+    <?php require 'assets/header.php'; ?>
+
+    <main>
+        <section class='main_heading'>
+            <h1>Upravit žáka</h1>
+        </section>
+
+        <section class="add_form">
+            <?php require 'assets/form.php'; ?>
+        </section>
+    </main>
+
+    <?php require 'assets/footer.php'; ?>
+
+</body>
+</html>

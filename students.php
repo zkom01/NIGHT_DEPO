@@ -23,15 +23,11 @@
         </section>
 
         <section>
-            <a href="add_student.php">Přidat žáka</a>
-        </section>
-
-        <section>
             <ul>
 
             <?php foreach ($students as $one_student): ?>
                 <li>
-                    <?= $one_student['first_name'] . " " . $one_student['second_name'] ?>
+                    <?= htmlspecialchars($one_student['first_name']) . " " . htmlspecialchars($one_student['second_name']) ?>
                 </li>
                 <a href="one_student.php?id=<?= $one_student['id'] ?>">Detail</a>
             <?php endforeach; ?>

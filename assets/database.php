@@ -30,7 +30,7 @@
      * @param string $college
      * @return string
      * 
-     * Tato funkce přijímá připojení k databázi a údaje o žákovi, připraví SQL dotaz pro vložení dat do tabulky student, naváže parametry a vykoná dotaz. Pokud je dotaz úspěšný, vrátí zprávu o úspěchu včetně ID nově přidaného žáka. Pokud dojde k chybě, vrátí zprávu s chybou.
+     * Tato funkce přijímá připojení k databázi a informace o studentovi, připraví SQL dotaz pro vložení nového studenta do tabulky, naváže parametry a vykoná dotaz. Pokud je dotaz úspěšný, vrátí zprávu o úspěšném přidání studenta. Pokud dojde k chybě, vrátí chybovou zprávu s informací o chybě z databáze.
      */
     function addStudent($conn, $first_name, $second_name, $age, $life, $college) {
         $sql = "INSERT INTO student (first_name, second_name, age, life, college) 
@@ -38,16 +38,45 @@
 
         $statement = mysqli_prepare($conn, $sql); // připravíme SQL dotaz
 
-        mysqli_stmt_bind_param($statement, "ssiss", $first_name, $second_name, $age, $life, $college); // navážeme parametry
+        mysqli_stmt_bind_param($statement, "ssiss", htmlspecialchars($first_name), htmlspecialchars($second_name), $age, htmlspecialchars($life), htmlspecialchars($college)); // navážeme parametry
 
         $result = mysqli_stmt_execute($statement); // vykonáme SQL dotaz
 
         if ($result) {
-            header('Location: students.php'); // přesměrujeme na hlavní stránku s žáky
-            // $id = mysqli_insert_id($conn); // získáme ID nově přidaného žáka    
-            // return "Žák úspěšně přidán! Jeho ID je: " . $id; // vrátíme zprávu o úspěchu
+            return "Žák úspěšně přidán.";
         } else {
             return "Chyba při přidávání žáka: " . mysqli_error($conn);
+        }
+    }
+
+    /**
+     * Upravuje informace o studentovi v databázi
+     * @param mysqli $conn
+     * @param int $id
+     * @param string $first_name
+     * @param string $second_name
+     * @param int $age
+     * @param string $life
+     * @param string $college
+     * @return string
+     *
+     * Tato funkce upraví informace o studentovi v databázi na základě jeho ID. Připraví SQL dotaz pro aktualizaci informací o studentovi, naváže parametry a vykoná dotaz. Pokud je dotaz úspěšný, vrátí zprávu o úspěšném upravení studenta. Pokud dojde k chybě, vrátí chybovou zprávu s informací o chybě z databáze.
+     */
+    function editStudent($conn, $id, $first_name, $second_name, $age, $life, $college) {
+        $sql = "UPDATE student
+                SET first_name = ?, second_name = ?, age = ?, life = ?, college = ?
+                WHERE id = ?";
+
+        $statement = mysqli_prepare($conn, $sql); // připravíme SQL dotaz
+
+        mysqli_stmt_bind_param($statement, "ssissi", htmlspecialchars($first_name), htmlspecialchars($second_name), $age, htmlspecialchars($life), htmlspecialchars($college), $id); // navážeme parametry
+
+        $result = mysqli_stmt_execute($statement); // vykonáme SQL dotaz a vrátíme výsledek
+
+        if ($result) {
+            return "Žák úspěšně upraven.";
+        } else {
+            return "Chyba při úpravě žáka: " . mysqli_error($conn);
         }
     }
 
@@ -57,7 +86,7 @@
      * @param int $id
      * @return array|false
      * 
-     * Tato funkce přijímá připojení k databázi a ID studenta, připraví SQL dotaz pro získání informací o daném studentovi, naváže parametr a vykoná dotaz. Pokud je dotaz úspěšný, vrátí informace o studentovi jako asociativní pole. Pokud dojde k chybě, vrátí false.
+     * Tato funkce přijímá připojení k databázi a ID studenta, připraví SQL dotaz pro získání informací o studentovi, naváže parametry a vykoná dotaz. Vrátí informace o studentovi jako asociativní pole, nebo false, pokud student s daným ID neexistuje.
      */
     function getOneStudent($conn, $id) {
         $sql = "SELECT *
@@ -72,7 +101,11 @@
 
         $result = mysqli_stmt_get_result($statement); // získáme výsledek dotazu
 
-        return mysqli_fetch_assoc($result); // vrátíme informace o studentovi jako asociativní pole
+        if ($result) {
+            return mysqli_fetch_assoc($result);
+        } else {
+            return "Chyba při získávání informací o žáku: " . mysqli_error($conn);
+        }
     }
 
     /**
@@ -83,7 +116,7 @@
      * Tato funkce přijímá připojení k databázi a vrací informace o všech studentech jako pole asociativních polí.
      */
     function allStudents($conn) {
-        $sql = "SELECT id, first_name, second_name
+        $sql = "SELECT *
                 FROM student
                 WHERE id > 0";
 

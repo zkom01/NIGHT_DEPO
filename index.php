@@ -13,6 +13,10 @@
         <section class="main_heading">
             <h1>Index</h1>
         </section>
+
+        <section>
+            <li><a href="students.php">Seznam žáků</a></li>
+        </section>
     </main>
 
     <?php require 'assets/footer.php'; ?>

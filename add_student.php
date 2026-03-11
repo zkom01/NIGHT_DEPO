@@ -1,5 +1,6 @@
 <?php
     require 'assets/database.php'; // načteme soubor s funkcemi pro práci s databází
+    session_start(); // spustíme session pro správu uživatelských relací
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
 
@@ -12,8 +13,15 @@
         $life = $_POST['life'];
         $college = $_POST['college'];
 
-        $message = addStudent($conn, $first_name, $second_name, $age, $life, $college); // zavoláme funkci pro přidání žáka a uložíme vrácenou zprávu do proměnné $message
-        echo $message; // vypíšeme zprávu o úspěchu nebo chybě
+        $result = addStudent($conn, $first_name, $second_name, $age, $life, $college); // zavoláme funkci pro přidání žáka a uložíme vrácenou zprávu do proměnné $result
+
+        if ($result) {
+            // echo "<div class='error_message'>" . htmlspecialchars($result) . "</div>"; // pokud funkce vrátí zprávu, zobrazíme ji
+            $_SESSION['success_message'] = $result; // Uložíme do session zprávu o úspěšném přidání studenta, aby se zobrazila na stránce s detaily studenta
+            $id = mysqli_insert_id($conn); // získáme ID editovaného žáka 
+            header("Location: one_student.php?id=" . $id); // přesměrujeme na stránku s detaily studenta
+            exit; // ukončí skript, aby se zabránilo dalšímu vykonávání po přesměrování
+        }
     }
 ?>
 
@@ -34,17 +42,7 @@
         </section>
 
         <section class="add_form">
-            <form action="add_student.php" method="POST">
-
-                <input type="text" name="first_name" placeholder="Křestní jméno" required><br>
-                <input type="text" name="second_name" placeholder="Příjmení" required><br>
-                <input type="number" name="age" placeholder="Věk" required><br>
-                <textarea name="life" placeholder="Podrobnosti o žákovi"></textarea><br>
-                <input type="text" name="college" placeholder="Škola"><br>
-
-                <button type="submit">Přidat žáka</button>
-
-            </form>
+            <?php require 'assets/form.php'; ?>
         </section>
     </main>
 
