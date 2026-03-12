@@ -86,7 +86,8 @@
      * @param int $id
      * @return array|false
      * 
-     * Tato funkce přijímá připojení k databázi a ID studenta, připraví SQL dotaz pro získání informací o studentovi, naváže parametry a vykoná dotaz. Vrátí informace o studentovi jako asociativní pole, nebo false, pokud student s daným ID neexistuje.
+     * Tato funkce přijímá připojení k databázi a ID studenta, připraví SQL dotaz pro získání informací o studentovi, naváže parametry a vykoná dotaz. Pokud je dotaz úspěšný a student s daným ID existuje, vrátí informace o studentovi jako asociativní pole. Pokud student s daným ID není nalezen, vrátí zprávu o nenalezení studenta. Pokud dojde k chybě při získávání informací, vrátí chybovou zprávu s informací o chybě z databáze.
+
      */
     function getOneStudent($conn, $id) {
         $sql = "SELECT *
@@ -102,10 +103,15 @@
         $result = mysqli_stmt_get_result($statement); // získáme výsledek dotazu
 
         if ($result) {
-            return mysqli_fetch_assoc($result);
+            $data = mysqli_fetch_assoc($result);
+            if ($data) {
+                return $data; // vrátíme informace o studentovi jako asociativní pole
+            } else {
+                return "Student s ID $id nebyl nalezen v databázi."; // student s daným ID nebyl nalezen
+            }   
         } else {
             return "Chyba při získávání informací o žáku: " . mysqli_error($conn);
-        }
+        }   
     }
 
     /**

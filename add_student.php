@@ -16,7 +16,6 @@
         $result = addStudent($conn, $first_name, $second_name, $age, $life, $college); // zavoláme funkci pro přidání žáka a uložíme vrácenou zprávu do proměnné $result
 
         if ($result) {
-            // echo "<div class='error_message'>" . htmlspecialchars($result) . "</div>"; // pokud funkce vrátí zprávu, zobrazíme ji
             $_SESSION['success_message'] = $result; // Uložíme do session zprávu o úspěšném přidání studenta, aby se zobrazila na stránce s detaily studenta
             $id = mysqli_insert_id($conn); // získáme ID editovaného žáka 
             header("Location: one_student.php?id=" . $id); // přesměrujeme na stránku s detaily studenta

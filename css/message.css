@@ -1,12 +1,13 @@
 /* message.css */
 
-.flash-message {
+.flash_message {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 25px 45px;
-    min-width: 300px;
+    width: 250px;
+    min-width: 200px;
     min-height: 30px;
     display: flex;
     align-items: center;
@@ -17,16 +18,15 @@
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     opacity: 0;
     z-index: 10000;
-
-    /* Výchozí barvy (zelené) */
+    /* Výchozí zelená */
     background-color: rgba(212, 237, 218, 0.95);
     color: #155724;
     border: 2px solid #28a745;
 }
 
-/* Tato třída jen přepíše barvy, pokud je přidána k flash-message */
-.flash-message.error-message {
+/* Kombinace tříd pro chybu - musí být v souboru pod .flash_message */
+.flash_message.error {
     background-color: rgba(248, 215, 218, 0.95);
     color: #721c24;
-    border: 2px solid #dc3545; /* trochu sytější červená pro okraj */
+    border: 2px solid #dc3545;
 }
