@@ -78,6 +78,7 @@
         <?php if (is_array($oneStudent)): ?>
             <section class="buttons">
                 <a href="edit_student.php?id=<?= $id ?>">Upravit žáka</a>
+                <a href="delete_student.php?id=<?= $id ?>" onclick="return confirm('Opravdu chcete smazat tohoto žáka?')">Smazat žáka</a>
             </section>
         <?php endif ?>
 

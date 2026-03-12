@@ -4,7 +4,7 @@
         name="first_name" 
         placeholder="Křestní jméno" 
         value="<?= htmlspecialchars($first_name) ?>" 
-        required
+
     ><br>
 
     <input 

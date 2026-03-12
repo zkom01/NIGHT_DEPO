@@ -1,5 +1,6 @@
 <?php
     require 'assets/database.php'; // načteme soubor s funkcemi pro práci s databází
+    require 'assets/url.php'; // načteme soubor s funkcí pro přesměrování
     session_start(); // spustíme session pro správu uživatelských relací
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
@@ -18,7 +19,7 @@
         if ($result) {
             $_SESSION['success_message'] = $result; // Uložíme do session zprávu o úspěšném přidání studenta, aby se zobrazila na stránce s detaily studenta
             $id = mysqli_insert_id($conn); // získáme ID editovaného žáka 
-            header("Location: one_student.php?id=" . $id); // přesměrujeme na stránku s detaily studenta
+            redirectUrl("one_student.php?id=" . $id); // přesměrujeme na stránku s detaily studenta
             exit; // ukončí skript, aby se zabránilo dalšímu vykonávání po přesměrování
         }
     }

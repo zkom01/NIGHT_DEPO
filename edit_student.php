@@ -1,5 +1,6 @@
 <?php
     require 'assets/database.php'; // načteme soubor s funkcemi pro práci s databází
+    require 'assets/url.php'; // načteme soubor s funkcí pro přesměrování
     session_start(); // spustíme session pro správu uživatelských relací
 
     $conn = connectionDB(); // zavoláme funkci pro připojení k databázi a uložíme připojení do proměnné $conn
@@ -13,7 +14,7 @@
         $life = $one_student['life'];
         $college = $one_student['college'];
     } else {
-        header("Location: one_student.php?id=" . $id); // přesměrujeme na stránku s detaily studenta
+        redirectUrl("one_student.php?id=" . $id); // přesměrujeme na stránku s detaily studenta
         exit; // ukončí skript, aby se zabránilo dalšímu vykonávání po přesměrování
     }
 
@@ -30,7 +31,7 @@
 
         if ($result) {
             $_SESSION['success_message'] = $result; // Uložíme do session zprávu o úspěšném upravení studenta, aby se zobrazila na stránce s detaily studenta
-            header("Location: one_student.php?id=" . $id); // přesměrujeme na stránku s detaily studenta
+            redirectUrl("one_student.php?id=" . $id); // přesměrujeme na stránku s detaily studenta
             exit; // ukončí skript, aby se zabránilo dalšímu vykonávání po přesměrování
         }
     }
