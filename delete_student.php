@@ -1,6 +1,6 @@
 <?php
 require 'assets/database.php'; // načteme soubor s funkcemi pro práci s databází
-require 'assets/url.php';
+require 'assets/url.php'; // načteme soubor s funkcí pro přesměrování
 session_start(); // spustíme session pro ukládání hlášek o úspěchu nebo chybě
 
 $conn = connectionDB(); // zavoláme funkci pro připojení k databázi a uložíme připojení do proměnné $conn
