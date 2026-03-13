@@ -15,7 +15,7 @@
         </section>
 
         <section>
-            <li><a href="students.php">Seznam žáků</a></li>
+            <li><a href="all_students.php">Seznam žáků</a></li>
         </section>
     </main>
 

@@ -71,7 +71,7 @@
                 <p>Škola: <?= htmlspecialchars($oneStudent['college']) ?></p>
             <?php else: ?>
                 <p>"Student s ID <?= htmlspecialchars($id) ?> nebyl nalezen v databázi."</p>
-                <a href="students.php">Zpět na seznam studentů</a>
+                <a href="all_students.php">Zpět na seznam studentů</a>
             <?php endif ?>
         </section>
 

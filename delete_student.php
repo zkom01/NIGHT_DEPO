@@ -8,7 +8,7 @@ $id = $_GET['id']; // získáme ID studenta z URL
 $result = deleteStudent($conn, $id); // zavoláme funkci pro smazání studenta z databáze a uložíme výsledek do proměnné $result
 
 $_SESSION['success_message'] = $result; // uložíme výsledek do session, aby se zobrazil na další stránce
-redirectUrl("students.php"); // přesměrujeme na stránku se seznamem studentů
+redirectUrl("all_students.php"); // přesměrujeme na stránku se seznamem studentů
 exit(); // ukončíme skript, aby se zabránilo dalšímu vykonávání kódu po přesměrování
 
 ?>
