@@ -27,6 +27,7 @@
 /* Kombinace tříd pro chybu - musí být v souboru pod .flash_message */
 .flash_message.error {
     background-color: rgba(248, 215, 218, 0.95);
-    color: #721c24;
+    color: #721c24; 
     border: 2px solid #dc3545;
 }
+

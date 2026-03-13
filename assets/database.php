@@ -113,8 +113,8 @@
      * 
      * Tato funkce přijímá připojení k databázi a ID studenta, připraví SQL dotaz pro získání informací o studentovi, naváže parametry a vykoná dotaz. Pokud je dotaz úspěšný a student s daným ID existuje, vrátí informace o studentovi jako asociativní pole. Pokud student s daným ID není nalezen, vrátí zprávu o nenalezení studenta. Pokud dojde k chybě při získávání informací, vrátí chybovou zprávu s informací o chybě z databáze.
      */
-    function getOneStudent($conn, $id) {
-        $sql = "SELECT *
+    function getOneStudent($conn, $id, $columns = "*") {
+        $sql = "SELECT $columns
                 FROM student
                 WHERE id = ?";
 
@@ -145,8 +145,8 @@
      * 
      * Tato funkce přijímá připojení k databázi a vrací informace o všech studentech jako pole asociativních polí.
      */
-    function allStudents($conn) {
-        $sql = "SELECT *
+    function allStudents($conn, $columns = "*") {
+        $sql = "SELECT $columns
                 FROM student
                 WHERE id > 0";
 
