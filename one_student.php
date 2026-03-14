@@ -13,48 +13,36 @@
     
 ?>
 
-<!DOCTYPE html>
-<html lang="cs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/message.css"> <!-- přidáme styl pro hlášky -->
-    <link rel="stylesheet" href="./css/header.css?v=<?php echo filemtime('./css/header.css'); ?>"> <!-- přidáme styl pro hlavičku s verzováním pro zajištění načítání aktualizovaného souboru -->
-    <title>one_student</title>
-</head>
-<body>
+<?php 
+    $pageTitle = "Detail studenta"; // Tady definujete název stránky, který se zobrazí v záložce prohlížeče
+    require 'assets/header.php'; ?> <!-- přidáme hlavičku stránky -->
 
-    <?php require 'assets/header.php'; ?> <!-- přidáme hlavičku stránky -->
+<?php require 'assets/flash_message.php'; ?> <!-- přidáme soubor pro zobrazení hlášek -->
 
-    <?php require 'assets/flash_message.php'; ?> <!-- přidáme soubor pro zobrazení hlášek -->
+<main>
+    <section class="main_heading">
+        <h1>Informace o studentovi</h1>
+    </section>
 
-    <main>
-        <section class="main_heading">
-            <h1>Informace o studentovi</h1>
-        </section>
-
-        <section>
-            <?php if (is_array($oneStudent)): ?>
-                <h2><?= htmlspecialchars($oneStudent['first_name']) . " " . htmlspecialchars($oneStudent['second_name']) ?></h2>
-                <p>Věk: <?= htmlspecialchars($oneStudent['age']) ?></p>
-                <p>Život: <?= htmlspecialchars($oneStudent['life']) ?></p>
-                <p>Škola: <?= htmlspecialchars($oneStudent['college']) ?></p>
-            <?php else: ?>
-                <p>"Student s ID <?= htmlspecialchars($id) ?> nebyl nalezen v databázi."</p>
-                <a href="all_students.php">Zpět na seznam studentů</a>
-            <?php endif ?>
-        </section>
-
+    <section>
         <?php if (is_array($oneStudent)): ?>
-            <section class="buttons">
-                <a href="edit_student.php?id=<?= $id ?>">Upravit žáka</a>
-                <a href="delete_student.php?id=<?= $id ?>">Smazat žáka</a>
-            </section>
+            <h2><?= htmlspecialchars($oneStudent['first_name']) . " " . htmlspecialchars($oneStudent['second_name']) ?></h2>
+            <p>Věk: <?= htmlspecialchars($oneStudent['age']) ?></p>
+            <p>Život: <?= htmlspecialchars($oneStudent['life']) ?></p>
+            <p>Škola: <?= htmlspecialchars($oneStudent['college']) ?></p>
+        <?php else: ?>
+            <p>"Student s ID <?= htmlspecialchars($id) ?> nebyl nalezen v databázi."</p>
+            <a href="all_students.php">Zpět na seznam studentů</a>
         <?php endif ?>
+    </section>
 
-    </main>
+    <?php if (is_array($oneStudent)): ?>
+        <section class="buttons">
+            <a href="edit_student.php?id=<?= $id ?>">Upravit žáka</a>
+            <a href="delete_student.php?id=<?= $id ?>">Smazat žáka</a>
+        </section>
+    <?php endif ?>
 
-    <?php require 'assets/footer.php'; ?>
+</main>
 
-</body>
-</html>
+<?php require 'assets/footer.php'; ?>

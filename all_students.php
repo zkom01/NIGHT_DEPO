@@ -10,20 +10,11 @@
     }
 ?>
 
-<!DOCTYPE html>
-<html lang="cs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/message.css"> <!-- přidáme styl pro hlášky -->
-    <link rel="stylesheet" href="./css/header.css?v=<?php echo filemtime('./css/header.css'); ?>"> <!-- přidáme styl pro hlavičku s verzováním pro zajištění načítání aktualizovaného souboru -->
-    <title>Zaci</title>
-</head>
-<body>
+<?php 
+    $pageTitle = "Seznam žáků"; // Tady definujete název stránky, který se zobrazí v záložce prohlížeče
+    require 'assets/header.php'; ?>
 
-    <?php require 'assets/header.php'; ?>
-
-    <?php require 'assets/flash_message.php'; ?> <!-- přidáme soubor pro zobrazení hlášek -->
+<?php require 'assets/flash_message.php'; ?> <!-- přidáme soubor pro zobrazení hlášek -->
 
     <main>
         <section class="main_heading">
@@ -44,6 +35,4 @@
         </section>
     </main>
 
-    <?php require 'assets/footer.php'; ?>
-</body>
-</html>
+<?php require 'assets/footer.php'; ?>

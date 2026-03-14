@@ -1,3 +1,5 @@
-<footer>
-    <p>&copy; 2026 NIGHT_DEPO. Všechna práva vyhrazena.</p>
-</footer>
+    <footer>
+        <p>&copy; <?php echo date("Y"); ?> NIGHT_DEPO. Všechna práva vyhrazena.</p>
+    </footer>
+</body>
+</html>

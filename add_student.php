@@ -25,17 +25,9 @@
     }
 ?>
 
-<!DOCTYPE html>
-<html lang="cs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/header.css?v=<?php echo filemtime('./css/header.css'); ?>"> <!-- přidáme styl pro hlavičku s verzováním pro zajištění načítání aktualizovaného souboru -->
-    <title>Přidat žáka</title>
-</head>
-
-<body>
-    <?php require 'assets/header.php'; ?>
+<?php 
+    $pageTitle = "Přidat žáka"; // Tady definujete název stránky, který se zobrazí v záložce prohlížeče
+    require 'assets/header.php'; ?>
 
     <main>
         <section class='main_heading'>
@@ -47,7 +39,4 @@
         </section>
     </main>
 
-    <?php require 'assets/footer.php'; ?>
-
-</body>
-</html>
+<?php require 'assets/footer.php'; ?>
