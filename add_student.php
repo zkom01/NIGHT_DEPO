@@ -30,6 +30,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/header.css?v=<?php echo filemtime('./css/header.css'); ?>"> <!-- přidáme styl pro hlavičku s verzováním pro zajištění načítání aktualizovaného souboru -->
     <title>Přidat žáka</title>
 </head>
 
