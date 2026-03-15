@@ -23,7 +23,7 @@
     /* --- ZMĚNY ZDE --- */
     opacity: 0; 
     pointer-events: none; /* Po zmizení nepůjde na prvek kliknout (nahrazuje remove) */
-    animation: flash-fade 2s ease forwards; /* Spustí animaci na 3 sekundy */
+    animation: flash-fade 2s ease forwards; /* Spustí animaci na 2 sekundy */
     /* ----------------- */
 
     background-color: rgba(212, 237, 218, 0.95);
@@ -42,15 +42,15 @@
     0% { 
         opacity: 0;
         /* Start: vycentrovaná horizontálně, vytažená vysoko NAD horní okraj (-200%) */
-        transform: translate(-50%, -100%);
+        transform: translate(-50%, -200%);
     }
-    15% { 
+    35% { 
         /* Příjezd do finální pozice */
         opacity: 1;
         /* Finální pozice: přesně na středu (50% shora) */
         transform: translate(-50%, -50%);
     }
-    85% {
+    65% {
         /* Zůstává viditelná a na středu */
         opacity: 1;
         transform: translate(-50%, -50%);
@@ -59,7 +59,7 @@
         /* Odjezd dolů */
         opacity: 0;
         /* Konec: vycentrovaná horizontálně, odjetá daleko POD spodní okraj (+200%) */
-        transform: translate(-50%, 100%);
+        transform: translate(-50%, 200%);
         visibility: hidden; /* Skryje element */
     }
 }

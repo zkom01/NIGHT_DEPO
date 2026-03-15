@@ -4,6 +4,7 @@
     $conn = connectionDB(); // zavoláme funkci pro připojení k databázi a uložíme připojení do proměnné $conn
     $students = allStudents($conn, "id, first_name, second_name"); // zavoláme funkci pro získání všech žáků a uložíme výsledek do proměnné $students
    
+    // skončím zde po smazání studenta
     $error = ""; // proměnná pro třídu hlášky, která se použije v případě nenalezení studenta
     if (isset($_SESSION['success_message'])) {
         $error = "error"; // pokud existuje hláška o úspěchu, nastavíme třídu na "error" pro zobrazení červené hlášky

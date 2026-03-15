@@ -13,9 +13,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     redirectUrl("all_students.php"); // přesměrujeme na stránku se seznamem studentů
     exit(); // ukončíme skript, aby se zabránilo dalšímu vykonávání kódu po přesměrování
 }
-
-
-
 ?>
 
 <?php 
