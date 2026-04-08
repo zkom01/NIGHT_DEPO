@@ -1,20 +1,27 @@
 <?php
-    require '../assets/auth.php'; // ověření přihlášení uživatele
-    require '../assets/database.php'; // připojíme se k databázi
-    require '../assets/studentsDB.php'; 
-    require '../assets/url.php'; // funkce pro přesměrování
+    // require '../assets/auth.php'; // ověření přihlášení uživatele
+    require '../classes/Auth.php';
+    // require '../assets/database.php'; // připojíme se k databázi
+    require '../classes/Database.php'; // načteme soubor s funkcemi pro práci s databází
+    // require '../assets/studentsDB.php'; 
+    require '../classes/StudentsDB.php';
+    // require '../assets/url.php'; // funkce pro přesměrování
+    require '../classes/Url.php';
     
     session_start(); // spustíme session pro ukládání hlášek o úspěchu nebo chybě a kontrola přihlášení
 
-    if ( !isLoggedIn($_SESSION['is_log_in']) ){
+    if ( !Auth::isLoggedIn($_SESSION['is_log_in']) ){
         session_regenerate_id(true); // zabranuje provedení fixation attack
         $_SESSION['success_message'] = ['text' => "NEPOVOLENÝ PŘÍSTUP", 'type' => 'error'];
-        redirectUrl("../index.php");
+        Url::redirectUrl("../index.php");
         exit(); // Zastaví vykonávání skriptu
     }
 
-    $conn = connectionDB(); // zavoláme funkci pro připojení k databázi a uložíme připojení do proměnné $conn
-    $students = allStudents($conn, "id, first_name, second_name"); // zavoláme funkci pro získání všech žáků a uložíme výsledek do proměnné $students
+    // $conn = connectionDB(); // zavoláme funkci pro připojení k databázi a uložíme připojení do proměnné $conn
+    $dbClass = new Database();
+    $conn = $dbClass->connectionDB();
+    
+    $students = StudentsDB::allStudents($conn, "id, first_name, second_name"); // zavoláme funkci pro získání všech žáků a uložíme výsledek do proměnné $students
    
 ?>
 

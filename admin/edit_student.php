@@ -1,19 +1,27 @@
 <?php
-    require '../assets/auth.php'; // ověření přihlášení uživatele
-    require '../assets/database.php'; // načteme soubor s funkcemi pro práci s databází
-    require '../assets/studentsDB.php'; 
-    require '../assets/url.php'; // načteme soubor s funkcí pro přesměrování
+    // require '../assets/auth.php'; // ověření přihlášení uživatele
+    require '../classes/Auth.php';
+    // require '../assets/database.php'; // načteme soubor s funkcemi pro práci s databází
+    require '../classes/Database.php'; // načteme soubor s funkcemi pro práci s databází
+    // require '../assets/studentsDB.php'; 
+    require '../classes/StudentsDB.php';
+    // require '../assets/url.php'; // načteme soubor s funkcí pro přesměrování
+    require '../classes/Url.php';
+
     session_start(); // spustíme session pro správu uživatelských relací
 
-    if ( !isLoggedIn($_SESSION['is_log_in']) ){
+    if ( !Auth::isLoggedIn($_SESSION['is_log_in']) ){
         $_SESSION['success_message'] = ['text' => "NEPOVOLENÝ PŘÍSTUP", 'type' => 'error'];
-        redirectUrl("../index.php");
+        Url::redirectUrl("../index.php");
         exit(); // Zastaví vykonávání skriptu
     }
 
-    $conn = connectionDB(); // zavoláme funkci pro připojení k databázi a uložíme připojení do proměnné $conn
+    // $conn = connectionDB(); // zavoláme funkci pro připojení k databázi a uložíme připojení do proměnné $conn
+    $dbClass = new Database();
+    $conn = $dbClass->connectionDB();
+    
     $id = $_GET['id']; // získáme ID studenta z URL pro načtení jeho informací do formuláře
-    $one_student = getOneStudent($conn, $id); // získáme informace o studentovi pro předvyplnění formuláře
+    $one_student = StudentsDB::getOneStudent($conn, $id); // získáme informace o studentovi pro předvyplnění formuláře
 
     if (is_array($one_student)) { // pokud se nám podařilo získat informace o studentovi, uložíme je do proměnných pro předvyplnění formuláře
         $first_name = $one_student['first_name'];
@@ -22,7 +30,7 @@
         $life = $one_student['life'];
         $college = $one_student['college'];
     } else {
-        redirectUrl("../admin/one_student.php?id=" . $id); // přesměrujeme na stránku s detaily studenta
+        Url::redirectUrl("../admin/one_student.php?id=" . $id); // přesměrujeme na stránku s detaily studenta
         exit; // ukončí skript, aby se zabránilo dalšímu vykonávání po přesměrování
     }
 
@@ -35,7 +43,7 @@
         $life = $_POST['life'];
         $college = $_POST['college'];
 
-        $result = editStudent($conn, $id, $first_name, $second_name, $age, $life, $college); // zavoláme funkci pro úpravu informací o studentovi a uložíme výsledek do proměnné $result
+        $result = StudentsDB::editStudent($conn, $id, $first_name, $second_name, $age, $life, $college); // zavoláme funkci pro úpravu informací o studentovi a uložíme výsledek do proměnné $result
 
         if ($result) {
             session_regenerate_id(true); // zabranuje provedení fixation attack
@@ -43,7 +51,7 @@
                 'text' => $result,
                 'type' => ''
             ]; // Uložíme do session zprávu o úspěšném přidání studenta, aby se zobrazila na další stránce
-            redirectUrl("../admin/one_student.php?id=" . $id); // přesměrujeme na stránku s detaily studenta
+            Url::redirectUrl("../admin/one_student.php?id=" . $id); // přesměrujeme na stránku s detaily studenta
             exit; // ukončí skript, aby se zabránilo dalšímu vykonávání po přesměrování
         }
     }

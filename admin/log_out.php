@@ -1,5 +1,7 @@
 <?php
-    require '../assets/url.php'; // načteme soubor s funkcí pro přesměrování
+    // require '../assets/url.php'; // načteme soubor s funkcí pro přesměrování
+    require '../classes/Url.php';
+
     session_start(); // pro přístup k $_SESSION 
 
     // Unset all of the session variables.
@@ -21,7 +23,7 @@
     session_start(); // pro přístup k $_SESSION 
     session_regenerate_id(true); // zabranuje provedení fixation attack
     $_SESSION['success_message'] = ['text' => "Odhlášení proběhlo úspěšně", 'type' => ''];
-    redirectUrl("../index.php");
+    Url::redirectUrl("../index.php");
     exit(); // Zastaví vykonávání skriptu
 
 ?>

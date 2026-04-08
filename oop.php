@@ -1,5 +1,7 @@
 <body>
-    <?php $pageTitle = "OOP"; require 'assets/header.php'; ?>
+    <?php $pageTitle = "OOP"; 
+    require 'assets/header.php'; 
+    ?>
 
     <main>
         <section class='oop'>

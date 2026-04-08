@@ -1,20 +1,28 @@
 <?php 
-    require '../assets/auth.php'; // ověření přihlášení uživatele
-    require '../assets/database.php'; // připojíme se k databázi
-    require '../assets/userDB.php';
-    require '../assets/url.php';
+    // require '../assets/auth.php'; // ověření přihlášení uživatele
+    require '../classes/Auth.php';
+    // require '../assets/database.php'; // připojíme se k databázi
+    require '../classes/Database.php'; // načteme soubor s funkcemi pro práci s databází
+    // require '../assets/userDB.php';
+    require '../classes/UserDB.php';
+    // require '../assets/url.php';
+    require '../classes/Url.php';
+
     session_start(); // spustíme session pro ukládání hlášek o úspěchu nebo chybě a kontrola přihlášení
 
-    if ( !isLoggedIn($_SESSION['is_log_in']) ){
+    if ( !Auth::isLoggedIn($_SESSION['is_log_in']) ){
         session_regenerate_id(true); // zabranuje provedení fixation attack
         $_SESSION['success_message'] = ['text' => "NEPOVOLENÝ PŘÍSTUP", 'type' => 'error'];
-        redirectUrl("../index.php");
+        Url::redirectUrl("../index.php");
         exit(); // Zastaví vykonávání skriptu
     }
 
-    $conn = connectionDB(); // zavoláme funkci pro připojení k databázi a uložíme připojení do proměnné $conn
+    // $conn = connectionDB(); // zavoláme funkci pro připojení k databázi a uložíme připojení do proměnné $conn
+    $dbClass = new Database();
+    $conn = $dbClass->connectionDB();
+
     $id = $_SESSION['log_in_user_id'];
-    $loginUser = infoUser($conn,$id);
+    $loginUser = UserDB::infoUser($conn,$id);
 ?>
 
 <?php require '../assets/flash_message.php'; ?> <!-- přidáme soubor pro zobrazení hlášek -->

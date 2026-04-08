@@ -1,5 +1,5 @@
 <?php  
-require './assets/configDB.php';
+require __DIR__ . '/../assets/configDB.php';
 
 /**
  * Třída pro správu databázového připojení.

@@ -2,6 +2,8 @@
 # Ignorovat soubory s citlivými údaji (hesla k DB)
 configDB.php
 .env
+.gitignore
+
 
 # --- LOGY ---
 # Ignorovat všechny soubory s příponou .log (včetně vašeho db_errors.log)

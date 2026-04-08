@@ -1,18 +1,24 @@
 <?php
-    require '../assets/database.php'; // načteme soubor s funkcemi pro práci s databází
-    require '../assets/userDB.php';
-    require '../assets/url.php'; // načteme soubor s funkcí pro přesměrování
+    // require '../assets/database.php'; // načteme soubor s funkcemi pro práci s databází
+    require '../classes/Database.php'; // načteme soubor s funkcemi pro práci s databází
+    // require '../assets/userDB.php';
+    require '../classes/UserDB.php';
+    // require '../assets/url.php'; // načteme soubor s funkcí pro přesměrování
+    require '../classes/Url.php';
+    
     session_start(); // spustíme session pro správu uživatelských relací
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
 
-        $conn = connectionDB(); // zavoláme funkci pro připojení k databázi a uložíme připojení do proměnné $conn
+        // $conn = connectionDB(); // zavoláme funkci pro připojení k databázi a uložíme připojení do proměnné $conn
+        $dbClass = new Database();
+        $conn = $dbClass->connectionDB();
 
          // získáme data z formuláře
         $email = $_POST['email'];
         $heslo= $_POST['heslo'];
 
-        $result = checkUser($conn, $email, $heslo); // funkce pro kontrolu uživatele a uložíme vrácenou zprávu do proměnné $result
+        $result = UserDB::checkUser($conn, $email, $heslo); // funkce pro kontrolu uživatele a uložíme vrácenou zprávu do proměnné $result
 
         if ($result['success']) {
             session_regenerate_id(true); // zabranuje provedení fixation attack (https://owasp.org/www-community/attacks/Session_fixation)
@@ -27,7 +33,7 @@
                 'type' => '',
             ]; // Uložíme do session zprávu o úspěšném přihlášení uživatele, aby se zobrazila na další stránce
 
-            redirectUrl("../admin/index_admin.php"); // přesměrujeme na stránku s detaily studenta
+            Url::redirectUrl("../admin/index_admin.php"); // přesměrujeme na stránku s detaily studenta
             exit; // ukončí skript, aby se zabránilo dalšímu vykonávání po přesměrování
         }
         else {
@@ -35,14 +41,14 @@
                 'text' => $result['message'],
                 'type' => 'error'
             ]; // Uložíme do session zprávu o úspěšném přihlášení uživatele, aby se zobrazila na další stránce
-            redirectUrl("../login.php"); // přesměrujeme na stránku s detaily studenta
+            Url::redirectUrl("../login.php"); // přesměrujeme na stránku s detaily studenta
             exit; // ukončí skript, aby se zabránilo dalšímu vykonávání po přesměrování
         }
     } else {
         session_regenerate_id(true); // zabranuje provedení fixation attack
         
         $_SESSION['success_message'] = ['text' => 'NEPOVOLENÝ PŘÍSTUP', 'type' => 'error'];
-        redirectUrl("../index.php");
+        Url::redirectUrl("../index.php");
         exit(); // Zastaví vykonávání skriptu
     }
 ?>
