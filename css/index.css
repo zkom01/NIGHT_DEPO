@@ -1,0 +1,77 @@
+main.index {
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* left, center, right */
+    align-items: start; /* start, center, end */
+    text-align: center;
+    color: #BDD9F2;
+    
+}
+
+main.index img {
+    width: 250px;
+    height: auto;     /* Zachová poměr stran obrázku */
+    margin-bottom: 20px;
+    margin-top: 20px;
+    /* filter: drop-shadow(5px 5px 10px rgba(189, 217, 242, 0.807)); */
+    /* --- ZMĚNY ZDE --- */
+    animation: from_top 1s linear; /* Spustí animaci na 1 sekundy */
+    /* ----------------- */
+}
+
+main.index h1 {
+    font-size: 50px;
+    letter-spacing: 2px;
+    word-spacing: 10px;
+    color: #BDD9F2;
+    border: 0;
+    animation: from_bottom 1s linear; /* Spustí animaci na 1 sekundy */
+}
+
+main.index h2 {
+    font-size: 30px;
+    letter-spacing: 2px;
+    color: #BDD9F2;
+    border: 0;
+    animation: from_bottom 1s linear; /* Spustí animaci na 1 sekundy */
+}
+
+/* DEFINICE ANIMACE */
+@keyframes from_top {
+    0% { 
+        opacity: 0;
+        transform: translateY(-30%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+        
+    }
+}
+
+@keyframes from_bottom {
+    0% { 
+        opacity: 0;
+        transform: translateY(30%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+        
+    }
+}
+
+@media (max-width: 450px) {
+    main.index h1 {
+    font-size: 35px;
+    }
+    
+    /* main.index h2 {
+    font-size: 10px;
+    } */
+}
+
+
+

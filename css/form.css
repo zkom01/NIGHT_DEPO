@@ -1,0 +1,126 @@
+/* Oprava bílého pozadí při automatickém vyplnění prohlížečem */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
+    /* Nastaví vnitřní stín, který barevně odpovídá vašemu pozadí */
+    /* -webkit-box-shadow: 0 0 0px 1000px rgba(54, 69, 89, 1) inset !important; */
+    -webkit-box-shadow: 0 0 0px 1000px #242e3b inset !important;
+    
+    /* Nastaví barvu písma, aby byla stále světle modrá */
+    -webkit-text-fill-color: #BDD9F2 !important;
+    
+    /* Plynulý přechod, aby to nebliklo při aktivaci */
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Schová šipky v Chrome, Safari, Edge */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Schová šipky ve Firefoxu */
+input[type="number"] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+/* Obal pro formulář */
+.add_form {
+    width: 100%;
+    max-width: 350px; /* Ideální šířka pro čitelnost */
+    margin: 5px;
+    padding: 15px;
+}
+
+.add_form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Vytvoří stejnoměrné mezery mezi poli i bez <br> */
+}
+
+/* Styl pro inputy, textarea, email, password */
+.add_form input[type="text"],
+.add_form input[type="number"],
+.add_form input[type="email"],
+.add_form input[type="password"],
+.add_form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #BDD9F2; /* Vaše světle modrá */
+    border-radius: 6px;
+    background-color: rgba(0, 0, 0, 0.2); /* Jemné ztmavení pro kontrast */
+    color: #BDD9F2; /* Světle modré písmo */
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+/* Speciální úprava pro textarea */
+.add_form textarea {
+    min-height: 120px;
+    resize: vertical; /* Uživatel si může zvětšit pole jen na výšku */
+    font-family: inherit;
+}
+
+/* Efekt při kliknutí (Focus) */
+.add_form input:focus,
+.add_form textarea:focus,
+.add_form select:focus{
+    outline: none;
+    border-color: #8A038C; /* Fialová jako u H1 */
+    background-color: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 8px rgba(138, 3, 140, 0.4);
+}
+
+/* Styl pro placeholder (text v poli před psaním) */
+.add_form ::placeholder {
+    color: rgba(189, 217, 242, 0.5); /* Světle modrá s průhledností */
+}
+
+.add_form select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #BDD9F2;
+    border-radius: 6px;
+    background-color: #242e3b; /* Stejná tmavá barva jako u autofillu */
+    color: #BDD9F2;
+    font-size: 16px;
+    cursor: pointer;
+    appearance: none; /* Odstraní nativní šipku prohlížeče (volitelné) */
+    background-image: url(../img/sipka_1.svg);
+    background-repeat: no-repeat;
+    background-position: right 15px center; /* Vlastní hezká šipka */
+}
+
+/* Styl pro možnosti uvnitř seznamu */
+.add_form select option {
+    background-color: #242e3b; /* Tmavé pozadí rozbaleného seznamu */
+    color: #BDD9F2;
+}
+
+.add_form.hiden_active{
+    display: none;
+}
+
+/* Styl pro validní stav - musí být specifičtější než obecný styl inputu */
+.add_form input.valid {
+    border-color: #2ecc71 !important; /* Hezká zelená */
+    box-shadow: 0 0 8px rgba(46, 204, 113, 0.3);
+    color: #2ecc71;
+}
+
+/* Styl pro nevalidní stav */
+.add_form input.invalid {
+    border-color: #e74c3c !important; /* Hezká červená */
+    box-shadow: 0 0 8px rgba(231, 76, 60, 0.3);
+    color: #e74c3c;
+}
+
+/* Styl pro text pod heslem */
+.result_text.valid { color: #2ecc71; }
+.result_text.invalid { color: #e74c3c; }

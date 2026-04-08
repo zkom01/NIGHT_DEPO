@@ -1,0 +1,50 @@
+header {
+    display: flex;
+    align-items: center;
+    background-color: #364559;
+}
+
+/* Logo a ikona menu budou mít stejnou šířku (např. 20%) */
+.logo, .menu_icon {
+    flex: 1; /* Obě strany zaberou stejný prostor */
+}
+
+.logo a {
+    display: block;      /* Aby fungovaly rozměry */
+    width: fit-content;  /* Odkaz bude jen tak široký, jako obrázek uvnitř */
+}
+
+.logo img {
+    width: 100px;
+    height: auto;     /* Zachová poměr stran obrázku */
+    display: block;   /* Odstraní nechtěnou mezeru pod obrázkem */
+    margin-left: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+/* Navigace nebude "růst", ale přizpůsobí se obsahu a bude uprostřed */
+header nav {
+    flex: 0; 
+    white-space: nowrap; /* Aby se menu nezalamovalo */
+}
+
+header nav li {
+    display: inline-block;
+    list-style-type: none;
+    margin-right: 20px;
+}
+
+header nav li a {
+    text-decoration: none;
+    color: #BDD9F2;
+    font-size: 20px;
+}
+
+.menu_icon img {
+    display: none; 
+    cursor: pointer;
+}
+
+

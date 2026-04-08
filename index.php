@@ -1,0 +1,17 @@
+<?php 
+    session_start(); // spustíme session pro ukládání hlášek o úspěchu nebo chybě a kontrola přihlášení
+    $pageTitle = "Úvodní strana"; // Tady definujete název stránky, který se zobrazí v záložce prohlížeče
+    require 'assets/header.php';  ?> <!-- přidáme hlavičku stránky -->
+
+
+<?php require 'assets/flash_message.php'; ?> <!-- přidáme soubor pro zobrazení hlášek -->
+
+    <main class="index">
+        <section>
+            <img src="./img/ela_kruh.png" alt="">
+            <h1>NIGHT_DEPO</h1>
+            <h2>Nepřihlášen</h2>
+        </section>
+    </main>
+
+<?php require 'assets/footer.php';  ?> <!-- přidáme patičku stránky -->

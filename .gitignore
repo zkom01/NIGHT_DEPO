@@ -1,0 +1,20 @@
+# --- KONFIGURACE (NEJDŮLEŽITĚJŠÍ) ---
+# Ignorovat soubory s citlivými údaji (hesla k DB)
+configDB.php
+.env
+
+# --- LOGY ---
+# Ignorovat všechny soubory s příponou .log (včetně vašeho db_errors.log)
+*.log
+classes/*.log
+
+# --- SYSTÉMOVÉ SOUBORY ---
+# Ignorovat nastavení editorů a operačního systému
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- ZÁVISLOSTI ---
+# Pokud budete v budoucnu používat Composer
+/vendor/

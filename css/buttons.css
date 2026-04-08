@@ -1,0 +1,65 @@
+/* Kontejner pro tlačítka vedle sebe */
+.buttons-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;       /* KLÍČOVÉ: Dovolí tlačítkům skočit na nový řádek */
+    justify-content: center; /* Vycentruje tlačítka */
+    gap: 20px;
+    width: 100%;
+    padding: 0 10px;       /* Drobný vnitřní okraj, aby se nelepila k hranám displaye */
+    box-sizing: border-box;
+}
+
+/* HLAVNÍ TŘÍDA PRO TLAČÍTKO (aplikovatelná na <button> i <a>) */
+.btn {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none; /* Odstraní podtržení u <a> */
+    padding: 15px;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: Arial;
+    min-width: 133px;
+}
+
+/* Fialové tlačítko (Akce / Smazat / Uložit) */
+.btn-primary {
+    background-color: #8A038C;
+    color: white;
+    padding: 10px;
+}
+
+.btn-primary:hover {
+    background-color: #a304a6;
+    transform: scale(1.02); /* Jemné zvětšení */
+}
+
+/* Modré/Světlé tlačítko (Zpět / Zrušit) */
+.btn-secondary {
+    background-color: #b22f3c;
+    color: white;
+    padding: 10px;
+}
+
+.btn-secondary:hover {
+    background-color: #f9061e;
+    transform: scale(1.02); /* Jemné zvětšení */
+
+}
+
+/* Styl pro zakázané tlačítko */
+.btn:disabled {
+    background-color: #555 !important; /* Šedá barva */
+    border-color: #444 !important;
+    color: #888 !important;
+    cursor: not-allowed; /* Změní kurzor na přeškrtnutý kruh */
+    opacity: 0.6;
+    box-shadow: none !important; /* Odstraní fialovou záři, pokud ji tam máte */
+    transform: scale(1); /* Jemné zvětšení */
+}

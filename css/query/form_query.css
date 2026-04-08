@@ -1,0 +1,11 @@
+@media (max-width: 600px) {
+    /* zmenšíme šiřku aby podtržení nepřesáhlo */
+    .main_heading {
+        width: 350px;
+    }
+
+    /* zmenšíme šiřku aby podtržení a text nepřesáhl */
+    .align_left {
+        width: 300px;
+    }
+}

@@ -1,0 +1,84 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    color: #BDD9F2;
+    font-size: 20px;
+}
+
+body {
+    background-color: #364559;
+}
+
+main {
+    padding-bottom: 20px;
+    display: flex;
+    min-height: 100vh;
+    background-image: 
+        linear-gradient(rgba(54, 69, 89, 0.851), rgba(0, 0, 0, 0.544)),
+        url(../img/ela_les.webp);
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #364559;
+
+    /* Ostatní styly */
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: #BDD9F2;
+    
+}
+
+/* Roztáhneme samotný obal nadpisu */
+.main_heading {
+    width: 550px;
+}
+
+h1 {
+    font-size: 50px;
+    color: #BDD9F2;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-bottom: 5px solid #BDD9F2;
+    width: 100%;           /* Roztáhne element na 100 % šířky rodiče */
+    box-sizing: border-box;
+}
+
+.align_left {
+    width: 500px;
+    text-align: left;
+    font-size: 20px;
+    margin-top: 15px;
+}
+
+
+/* ########################################################################### */
+
+/* styly pro oop.php pro účely učení */
+main .oop {
+    display: flex;
+    flex-direction: column;
+
+    width: 1200px;
+    min-height: 800px;
+    
+    align-self: flex-center; /* flex-start - Zůstává vlevo  flex-center, flex-end */
+    
+    /* VERTIKÁLNÍ CENTROVÁNÍ: */
+    margin-top: 10px; /* auto pro umístění na střed*/
+    margin-bottom: auto;
+    
+    text-align: left;
+    color: white;
+    font-size: 28px;
+    /* border: 2px solid red; */
+    background-color: rgb(5, 70, 126);
+    padding: 10px;
+}
+

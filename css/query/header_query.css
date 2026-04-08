@@ -1,0 +1,49 @@
+@media (max-width: 600px) {
+    /* Schováme klasické menu */
+    header.menu nav {
+        display: none;
+        position: absolute;
+        top: 110px;
+        background-color: #364559;
+        width: 100%;
+        z-index: 99999;
+    }
+
+     /* Stav, když má menu třídu .active při kliku s header.js */
+    header.menu nav.active {
+        display: block; /* Menu se zobrazí */
+    }
+
+    header nav li {
+        display: block;
+    }
+
+    header nav li a {
+        display: block;    /* Odkaz vyplní celý prostor */
+        width: 100%;       /* Roztáhne se do šířky */   
+        text-align: center; /* zarovnání left, center, right */
+        padding: 20px;   /* Odsazení dáme přímo na odkaz (zvětší klikatelnou plochu) */
+        border-bottom: 1px solid #333; /* oddělovač položek */
+    }
+
+    .menu_icon {
+        display: flex;
+        justify-content: flex-end; /* Ikona/obsah poletí doprava */
+        margin-right: 20px;
+    }
+
+    /* Zobrazíme ikonku menu */
+    .menu_icon img{
+        display: block;
+    }
+
+/* ########################################################################### */
+
+/* styly pro oop.php pro účely učení */
+main .oop {
+    width: 100%;
+    min-height: 100%;
+}
+
+
+}
