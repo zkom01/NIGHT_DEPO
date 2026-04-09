@@ -6,11 +6,7 @@
 
     session_start(); // spustíme session pro správu uživatelských relací
 
-    if ( !Auth::isLoggedIn($_SESSION['is_log_in']) ){
-        $_SESSION['success_message'] = ['text' => "NEPOVOLENÝ PŘÍSTUP", 'type' => 'error'];
-        Url::redirectUrl("../index.php");
-        exit(); // Zastaví vykonávání skriptu
-    }
+    Auth::requireLogin();
 
     $dbClass = new Database();
     $conn = $dbClass->connectionDB();

@@ -6,12 +6,7 @@
 
     session_start(); // pro přístup k $_SESSION
 
-    if ( !Auth::isLoggedIn($_SESSION['is_log_in']) ){
-        session_regenerate_id(true); // zabranuje provedení fixation attack
-        $_SESSION['success_message'] = ['text' => "NEPOVOLENÝ PŘÍSTUP", 'type' => 'error'];
-        Url::redirectUrl("../index.php");
-        exit(); // Zastaví vykonávání skriptu
-    }
+    Auth::requireLogin();
 
     $dbClass = new Database();
     $conn = $dbClass->connectionDB();

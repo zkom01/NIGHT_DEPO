@@ -7,13 +7,7 @@
     
     session_start(); // spustíme session pro správu uživatelských relací
 
-    if ( !Auth::isLoggedIn($_SESSION['is_log_in']) ){
-        session_regenerate_id(true); // zabranuje provedení fixation attack
-        
-        $_SESSION['success_message'] = ['text' => "NEPOVOLENÝ PŘÍSTUP", 'type' => 'error'];
-        Url::redirectUrl("../index.php");
-        exit(); // Zastaví vykonávání skriptu
-    }
+    Auth::requireLogin();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
 

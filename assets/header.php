@@ -36,7 +36,7 @@
     <!-- script pro hamburger menu defer = načte se až se načte celá stránka -->
     <script src="./js/header.js?v=<?php echo filemtime('./js/header.js'); ?>" defer></script>
     <!-- script pro přepínání formulářu regidter / login -->
-    <script src="./js/form_switch.js?v=<?php echo filemtime('./js/form_switch.js'); ?>" defer></script>
+    <script src="./js/switchForms.js?v=<?php echo filemtime('./js/switchForms.js'); ?>" defer></script>
     <!-- script pro kontrolu shody hesel u registrace -->
     <script src="./js/password_checker.js?v=<?php echo filemtime('./js/password_checker.js'); ?>" defer></script>
 
