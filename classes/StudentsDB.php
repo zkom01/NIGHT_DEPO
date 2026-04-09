@@ -1,7 +1,17 @@
 <?php
+/**
+ * Třída pro komplexní správu databáze studentů pomocí PDO.
+ */
 class StudentsDB {  
 
-
+    /**
+     * Získá data jednoho konkrétního studenta podle jeho ID.
+     *
+     * @param PDO $conn Objekt připojení k databázi.
+     * @param int $id Unikátní identifikátor studenta.
+     * @param string $columns Seznam sloupců k výběru (výchozí vše "*").
+     * @return array|string Pole s daty studenta při úspěchu, nebo chybová zpráva.
+     */
     public static function getOneStudent($conn, $id, $columns = "*") {
         $sql = "SELECT $columns
                 FROM student
@@ -28,6 +38,18 @@ class StudentsDB {
         }
     }
 
+    /**
+     * Upraví existující záznam studenta v databázi.
+     *
+     * @param PDO $conn Objekt připojení k databázi.
+     * @param int $id ID studenta, kterého chceme upravit.
+     * @param string $first_name Nové křestní jméno.
+     * @param string $second_name Nové příjmení.
+     * @param int $age Nový věk.
+     * @param string $life Textový popis nebo životopis.
+     * @param string $college Název vysoké školy/koleje.
+     * @return string Potvrzení o úspěchu nebo chybové hlášení.
+     */
     public static function editStudent($conn, $id, $first_name, $second_name, $age, $life, $college) {
         $sql = "UPDATE student
                 SET first_name = :first_name, 
@@ -61,6 +83,17 @@ class StudentsDB {
         }
     }
 
+    /**
+     * Přidá nového studenta do databáze.
+     *
+     * @param PDO $conn Objekt připojení k databázi.
+     * @param string $first_name Křestní jméno.
+     * @param string $second_name Příjmení.
+     * @param int $age Věk.
+     * @param string $life Popis/život.
+     * @param string $college Vysoká škola.
+     * @return string Potvrzení o úspěchu nebo chybové hlášení.
+     */
     public static function addStudent($conn, $first_name, $second_name, $age, $life, $college) {
         $sql = "INSERT INTO student (first_name, second_name, age, life, college) 
                 VALUES (:first_name, :second_name, :age, :life, :college)";
@@ -87,6 +120,13 @@ class StudentsDB {
         }
     }
 
+    /**
+     * Odstraní studenta z databáze podle ID.
+     *
+     * @param PDO $conn Objekt připojení k databázi.
+     * @param int $id ID studenta ke smazání.
+     * @return string Potvrzení o smazání nebo informace, že záznam neexistuje.
+     */
     public static function deleteStudent($conn, $id) {
         $sql = "DELETE FROM student
                 WHERE id = :id";
@@ -99,7 +139,7 @@ class StudentsDB {
 
             // Vykonáme dotaz
             if ($statement->execute()) {
-                // Volitelně můžete zkontrolovat, zda byl někdo skutečně smazán
+                // Kontrola, zda byl někdo skutečně smazán
                 if ($statement->rowCount() > 0) {
                     return "Žák s ID $id byl úspěšně smazán.";
                 } else {
@@ -115,6 +155,13 @@ class StudentsDB {
         }
     }
 
+    /**
+     * Vrátí seznam všech studentů v databázi.
+     *
+     * @param PDO $conn Objekt připojení k databázi.
+     * @param string $columns Seznam sloupců k výběru (výchozí "*").
+     * @return array Pole asociativních polí se všemi studenty.
+     */
     public static function allStudents($conn, $columns = "*") {
         $sql = "SELECT $columns
                 FROM student

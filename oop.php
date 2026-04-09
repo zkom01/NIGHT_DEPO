@@ -7,13 +7,14 @@
         <section class='oop'>
 
 <?php
+session_start(); // pro přístup k $_SESSION
 
 require './classes/Database.php';
+require './classes/Url.php';
 
 $dbClass = new Database();
 echo "Pokouším se o připojení...<br>";
 
-// Tato metoda by měla selhat, zapsat do logu a ukončit skript přes die()
 $conn = $dbClass->connectionDB();
 
 echo "Pokud vidíte toto, připojení se povedlo.<br><br>";

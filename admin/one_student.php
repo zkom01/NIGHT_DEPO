@@ -1,13 +1,10 @@
 <?php
-    // require '../assets/auth.php'; // ověření přihlášení uživatele
     require '../classes/Auth.php';
-    // require '../assets/database.php'; // připojíme se k databázi
-    require '../classes/Database.php'; // načteme soubor s funkcemi pro práci s databází
+    require '../classes/Database.php';
     require '../classes/StudentsDB.php'; 
-    // require '../assets/url.php'; // načteme soubor s funkcí pro přesměrování
     require '../classes/Url.php';
 
-    session_start(); // Opět nutné pro přístup k $_SESSION
+    session_start(); // pro přístup k $_SESSION
 
     if ( !Auth::isLoggedIn($_SESSION['is_log_in']) ){
         session_regenerate_id(true); // zabranuje provedení fixation attack
@@ -16,14 +13,12 @@
         exit(); // Zastaví vykonávání skriptu
     }
 
-    // $conn = connectionDB(); // zavoláme funkci pro připojení k databázi a uložíme připojení do proměnné $conn
     $dbClass = new Database();
     $conn = $dbClass->connectionDB();
 
     $id = $_GET['id']; // získáme id z URL
     $oneStudent = StudentsDB::getOneStudent($conn, $id); // zavoláme funkci pro získání informací o studentovi a uložíme výsledek do proměnné $oneStudent
     
-    $error = ""; // proměnná pro třídu hlášky, která se použije v případě nenalezení studenta
     if (!is_array($oneStudent)) {
         session_regenerate_id(true); // zabranuje provedení fixation attack
         $_SESSION['success_message'] = [

@@ -1,5 +1,4 @@
 <?php
-    // require '../assets/url.php'; // načteme soubor s funkcí pro přesměrování
     require '../classes/Url.php';
 
     session_start(); // pro přístup k $_SESSION 

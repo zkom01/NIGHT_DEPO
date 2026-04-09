@@ -1,11 +1,7 @@
 <?php
-    // require '../assets/auth.php'; // ověření přihlášení uživatele
     require '../classes/Auth.php';
-    // require '../assets/database.php'; 
     require '../classes/Database.php';
-    // require '../assets/studentsDB.php';
     require '../classes/StudentsDB.php';
-    // require '../assets/url.php';
     require '../classes/Url.php';
 
     
@@ -21,7 +17,6 @@
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
 
-        // $conn = connectionDB(); // zavoláme funkci pro připojení k databázi a uložíme připojení do proměnné $conn
         $dbClass = new Database();
         $conn = $dbClass->connectionDB();
 
@@ -32,7 +27,7 @@
         $life = $_POST['life'];
         $college = $_POST['college'];
 
-        $result = StudentsDB::addStudent($conn, $first_name, $second_name, $age, $life, $college); // zavoláme funkci pro přidání žáka a uložíme vrácenou zprávu do proměnné $result
+        $result = StudentsDB::addStudent($conn, $first_name, $second_name, $age, $life, $college);
 
         if ($result) {
             session_regenerate_id(true); // zabranuje provedení fixation attack

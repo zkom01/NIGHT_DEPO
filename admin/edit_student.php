@@ -1,11 +1,7 @@
 <?php
-    // require '../assets/auth.php'; // ověření přihlášení uživatele
     require '../classes/Auth.php';
-    // require '../assets/database.php'; // načteme soubor s funkcemi pro práci s databází
-    require '../classes/Database.php'; // načteme soubor s funkcemi pro práci s databází
-    // require '../assets/studentsDB.php'; 
+    require '../classes/Database.php';
     require '../classes/StudentsDB.php';
-    // require '../assets/url.php'; // načteme soubor s funkcí pro přesměrování
     require '../classes/Url.php';
 
     session_start(); // spustíme session pro správu uživatelských relací
@@ -16,7 +12,6 @@
         exit(); // Zastaví vykonávání skriptu
     }
 
-    // $conn = connectionDB(); // zavoláme funkci pro připojení k databázi a uložíme připojení do proměnné $conn
     $dbClass = new Database();
     $conn = $dbClass->connectionDB();
     

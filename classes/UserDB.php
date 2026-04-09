@@ -1,9 +1,20 @@
 <?php
 /**
- * Třída pro správu uživatelských dat v databázi přes PDO.
+ * Třída pro správu uživatelských dat v databázi přes rozhraní PDO.
+ * Zajišťuje registraci, autentizaci a získávání informací o uživatelích.
  */
 class UserDB {
 
+    /**
+     * Zaregistruje nového uživatele do systému.
+     *
+     * @param PDO $conn Objekt připojení k databázi.
+     * @param string $first_name Křestní jméno uživatele.
+     * @param string $second_name Příjmení uživatele.
+     * @param string $email Unikátní e-mailová adresa uživatele.
+     * @param string $heslo Již zahashované heslo (např. pomocí password_hash).
+     * @return array Pole s klíčem 'success' (bool) a 'message' (string).
+     */
     public static function addUser($conn, $first_name, $second_name, $email, $heslo) {
         $sql = "INSERT INTO user (first_name, second_name, email, heslo) 
                 VALUES (:first_name, :second_name, :email, :heslo)";
@@ -31,6 +42,14 @@ class UserDB {
         }
     }
 
+    /**
+     * Ověří existenci uživatele a správnost jeho hesla.
+     *
+     * @param PDO $conn Objekt připojení k databázi.
+     * @param string $email E-mailová adresa zadaná při přihlášení.
+     * @param string $heslo Heslo v textové podobě (bude ověřeno proti hashi).
+     * @return array Výsledek přihlášení obsahující success, message a případně ID uživatele.
+     */
     public static function checkUser($conn, $email, $heslo) {
         $sql = "SELECT id, heslo FROM user 
                 WHERE email = :email";
@@ -65,6 +84,13 @@ class UserDB {
         }
     }
 
+    /**
+     * Načte základní údaje o uživateli podle jeho ID.
+     *
+     * @param PDO $conn Objekt připojení k databázi.
+     * @param int $id Unikátní identifikátor uživatele.
+     * @return array Pole s daty uživatele (success => true) nebo chybová hláška.
+     */
     public static function infoUser($conn, $id) {
         $sql = "SELECT id, first_name, second_name FROM user 
                 WHERE id = :id";
