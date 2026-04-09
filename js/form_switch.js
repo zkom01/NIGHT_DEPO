@@ -1,7 +1,7 @@
 function switchForms() {
     var form1 = document.getElementById('form1');
     var form2 = document.getElementById('form2');
-    var click = document.getElementById('on_click');
+    // var click = document.getElementById('on_click');
     var h1text = document.querySelector('#on_click h1');
 
     // Přepne třídu pro zobrazení druhého formuláře

@@ -92,7 +92,7 @@ class UserDB {
      * @return array Pole s daty uživatele (success => true) nebo chybová hláška.
      */
     public static function infoUser($conn, $id) {
-        $sql = "SELECT id, first_name, second_name FROM user 
+        $sql = "SELECT id, first_name, second_name, email FROM user 
                 WHERE id = :id";
 
         try {
@@ -120,5 +120,36 @@ class UserDB {
             ];
         }
     }
+
+    public static function checkUserbyEmail($conn, $email) {
+        $sql = "SELECT email FROM user 
+                WHERE email = :email";
+
+        try {
+            $statement = $conn->prepare($sql);
+            $statement->bindValue(":email", $email, PDO::PARAM_STR);
+            $statement->execute();
+
+            $data = $statement->fetch(PDO::FETCH_ASSOC);
+
+            if ($data) {
+                return [
+                    "success" => true,
+                    "data" => $data
+                ];
+            } else {
+                return [
+                    "success" => false,
+                    "message" => "Uživatel nenalezen."
+                ];
+            }
+        } catch (PDOException $e) {
+            return [
+                "success" => false,
+                "message" => "Chyba při získávání informací: " . $e->getMessage()
+            ];
+        }
+    }
+
 }
 ?>

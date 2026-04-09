@@ -16,7 +16,28 @@
         $email = $_POST['email'];
         $heslo= password_hash($_POST['heslo'],PASSWORD_DEFAULT); // HASH HESLA
 
-        $result = UserDB::addUser($conn, $first_name, $second_name, $email, $heslo); // zavoláme funkci pro přidání uživatele a uložíme vrácenou zprávu do proměnné $result
+        $emailDB = UserDB::checkUserbyEmail($conn,$email);
+        
+        if (!$emailDB['success']){
+            $result = UserDB::addUser($conn, $first_name, $second_name, $email, $heslo); // zavoláme funkci pro přidání uživatele a uložíme vrácenou zprávu do proměnné $result
+        } else {
+            $_SESSION['success_message'] = [
+                'text' => "Zadaný e-mail " . $emailDB['data']['email'] ." již v databázi existuje",
+                'type' => 'error'
+            ];
+
+            // Uložíme odeslaná data, abychom je mohli vrátit do formuláře
+            $_SESSION['form_data'] = [
+                'first_name' => $first_name,
+                'second_name' => $second_name,
+                'email' => $email
+            ];
+            // Přesměrujeme zpět s parametrem pro zobrazení registrace
+            Url::redirectUrl("../login.php?show=registration");
+            exit;
+        }
+
+        
 
         if ($result['success']) {
             session_regenerate_id(true); // zabranuje provedení fixation attack (https://owasp.org/www-community/attacks/Session_fixation)

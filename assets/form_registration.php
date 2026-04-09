@@ -1,9 +1,17 @@
+<?php
+// Načteme data ze session, pokud tam jsou (z login.php)
+// Použijeme null coalescing operator ?? pro případ, že data neexistují
+$f_name = $formData['first_name'] ?? ''; // pokud data existují použij jinak ''
+$s_name = $formData['second_name'] ?? '';
+$e_mail = $formData['email'] ?? '';
+?>
+
 <form action="admin/after_registration.php" method="POST">
     <input 
         type="text" 
         name="first_name" 
         placeholder="Křestní jméno" 
-        value="<?= htmlspecialchars($first_name) ?>" 
+        value="<?= htmlspecialchars($f_name) ?>" 
         required
     >
 
@@ -11,7 +19,7 @@
         type="text" 
         name="second_name" 
         placeholder="Příjmení" 
-        value="<?= htmlspecialchars($second_name) ?>" 
+        value="<?= htmlspecialchars($s_name) ?>" 
         required
     >
 
@@ -19,6 +27,7 @@
         type="email" 
         name="email" 
         placeholder="Email" 
+        value="<?= htmlspecialchars($e_mail) ?>" 
         autocomplete="email"
         required
     >
@@ -27,7 +36,7 @@
         class="password_first" 
         type="password" 
         name="heslo" 
-        placeholder="heslo" 
+        placeholder="Heslo" 
         autocomplete="new-password"
         required
     >
@@ -36,11 +45,12 @@
         class="password_second"
         type="password" 
         name="heslo_confirm" 
-        placeholder="heslo znovu" 
+        placeholder="Heslo znovu" 
         autocomplete="new-password"
         required
     >
-    <p class="result_text">&nbsp</p>
+    
+    <p class="result_text">&nbsp;</p>
     
     <section class="buttons-container">
         <button type="submit" class="btn btn-primary">Registrovat</button>
