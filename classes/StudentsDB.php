@@ -1,16 +1,19 @@
 <?php
+require_once __DIR__ . '/LogError.php';
 /**
  * Třída pro komplexní správu databáze studentů pomocí PDO.
  */
 class StudentsDB {  
 
     /**
-     * Získá data jednoho konkrétního studenta podle jeho ID.
+     * Získá data jednoho konkrétního studenta podle jeho ID s logováním chyb.
+     * * * Metoda se pokusí vyhledat studenta. Pokud není nalezen nebo dojde k SQL chybě,
+     * zapíše podrobnosti do specifického logu 'oneStudent_errors' a vrátí textové hlášení.
      *
      * @param PDO $conn Objekt připojení k databázi.
      * @param int $id Unikátní identifikátor studenta.
      * @param string $columns Seznam sloupců k výběru (výchozí vše "*").
-     * @return array|string Pole s daty studenta při úspěchu, nebo chybová zpráva.
+     * @return array|string Pole s daty studenta při úspěchu, nebo textová zpráva pro uživatele.
      */
     public static function getOneStudent($conn, $id, $columns = "*") {
         $sql = "SELECT $columns
@@ -30,11 +33,17 @@ class StudentsDB {
             if ($result) {
                 return $result; // Vrátíme pole s daty studenta
             } else {
+                // Logujeme nenalezení záznamu jako varování
+                LogError::logError("(class StudentsDB - getOneStudent) Student s ID $id nebyl nalezen v databázi.", 'oneStudent_errors');
                 return "Student s ID $id nebyl nalezen v databázi.";
             }
 
         } catch (PDOException $e) {
-            return "Chyba při získávání informací o žáku: " . $e->getMessage();
+            // Zalogujeme skutečný technický problém (např. chyba v názvu sloupce)
+            LogError::logError("(class StudentsDB - getOneStudent) SQL chyba: " . $e->getMessage(), 'oneStudent_errors');
+            
+            // Uživateli vrátíme jen neutrální zprávu pro zachování bezpečnosti
+            return "Omlouváme se, došlo k technické chybě při čtení dat.";
         }
     }
 

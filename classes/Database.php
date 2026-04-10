@@ -35,7 +35,7 @@ class Database {
             return $db;
         } catch (PDOException $e){
             // Zápis technického detailu do skrytého logu
-            LogError::logError($e->getMessage());
+            LogError::logError($e->getMessage(),'db_errors');
 
             // Příprava session pro zobrazení chyby uživateli
             if (session_status() === PHP_SESSION_NONE) session_start();

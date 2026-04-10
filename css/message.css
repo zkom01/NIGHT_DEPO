@@ -27,7 +27,7 @@
     /* --- ZMĚNY ZDE --- */
     opacity: 0; 
     pointer-events: none; /* Po zmizení nepůjde na prvek kliknout (nahrazuje remove) */
-    animation: flash-fade 2s ease forwards; /* Spustí animaci na 3 sekundy */
+    animation: flash-fade 4s ease forwards; /* Spustí animaci na 4 sekundy */
     /* ----------------- */
 
     background-color: rgba(212, 237, 218, 0.95);
