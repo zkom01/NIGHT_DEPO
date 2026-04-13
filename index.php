@@ -1,7 +1,17 @@
 <?php 
     session_start(); // spustíme session pro ukládání hlášek o úspěchu nebo chybě a kontrola přihlášení
+    require './classes/Auth.php';
+    require './classes/Url.php';
+
+    if(Auth::isLoggedIn()){
+        Url::flashMessage("Jste stále přihlášen.", "");
+        Url::redirectUrl("./admin/index_admin.php"); 
+    }
+
     $pageTitle = "Úvodní strana"; // Tady definujete název stránky, který se zobrazí v záložce prohlížeče
-    require 'assets/header.php';  ?> <!-- přidáme hlavičku stránky -->
+    require './assets/header.php'; 
+    
+?>
 
 
 <?php require 'assets/flash_message.php'; ?> <!-- přidáme soubor pro zobrazení hlášek -->

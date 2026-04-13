@@ -37,14 +37,10 @@ class Database {
             // Zápis technického detailu do skrytého logu
             LogError::logError($e->getMessage(),'db_errors');
 
-            // Příprava session pro zobrazení chyby uživateli
-            if (session_status() === PHP_SESSION_NONE) session_start();
+            // // Příprava session pro zobrazení chyby uživateli
+            // if (session_status() === PHP_SESSION_NONE) session_start();
 
-            session_regenerate_id(true);
-            $_SESSION['success_message'] = [
-                'text' => "Došlo k chybě při spojení s databází.",
-                'type' => 'error'
-            ];
+            Url::flashMessage('Došlo k chybě při spojení s databází.','error');
 
             // Bezpečné ukončení a návrat na index
             Url::redirectUrl("./index.php");

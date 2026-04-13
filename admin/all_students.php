@@ -1,10 +1,9 @@
 <?php
+    session_start(); // spustíme session pro ukládání hlášek o úspěchu nebo chybě a kontrola přihlášení
     require '../classes/Auth.php';
     require '../classes/Database.php';
     require '../classes/StudentsDB.php';
     require '../classes/Url.php';
-    
-    session_start(); // spustíme session pro ukládání hlášek o úspěchu nebo chybě a kontrola přihlášení
 
    Auth::requireLogin();
 

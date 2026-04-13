@@ -1,10 +1,9 @@
 <?php
+    session_start(); // pro přístup k $_SESSION
     require '../classes/Auth.php';
     require '../classes/Database.php';
     require '../classes/StudentsDB.php'; 
     require '../classes/Url.php';
-
-    session_start(); // pro přístup k $_SESSION
 
     Auth::requireLogin();
 
@@ -15,11 +14,7 @@
     $oneStudent = StudentsDB::getOneStudent($conn, $id); // zavoláme funkci pro získání informací o studentovi a uložíme výsledek do proměnné $oneStudent
     
     if (!is_array($oneStudent)) {
-        session_regenerate_id(true); // zabranuje provedení fixation attack
-        $_SESSION['success_message'] = [
-                'text' => $oneStudent,
-                'type' => 'error'
-            ]; // Uložíme do session zprávu o nenalezení studenta, aby se zobrazila na stránce s detaily studenta
+        Url::flashMessage($oneStudent,'error');// Uložíme do session zprávu o nenalezení studenta, aby se zobrazila na stránce s detaily studenta
     }
     
 ?>

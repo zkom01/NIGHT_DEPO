@@ -1,10 +1,10 @@
 <?php
-require '../classes/Auth.php';
-require '../classes/Database.php';
-require '../classes/UserDB.php';
-require '../classes/Url.php';
+    session_start(); // spustíme session pro správu uživatelských relací
+    require '../classes/Auth.php';
+    require '../classes/Database.php';
+    require '../classes/UserDB.php';
+    require '../classes/Url.php';
 
-session_start(); // spustíme session pro správu uživatelských relací
 
     Auth::requireLogin();
 
@@ -13,10 +13,7 @@ session_start(); // spustíme session pro správu uživatelských relací
 
     $id = $_SESSION['log_in_user_id'];
 
-
     $loginUser = UserDB::infoUser($conn,$id);
-
-
 ?>
 
 <?php 
@@ -31,7 +28,11 @@ session_start(); // spustíme session pro správu uživatelských relací
     </section>
 
     <section class="align_left">
-        <h2>Přihlášen: <?= htmlspecialchars($loginUser['data']['first_name']) ?> <?= htmlspecialchars($loginUser['data']['second_name']) ?><br>id: <?= htmlspecialchars($loginUser['data']['id']) ?><br>email: <?= htmlspecialchars($loginUser['data']['email']) ?></h2>
+        <h4>Přihlášen: <?= htmlspecialchars($loginUser['data']['first_name']) ?> <?= htmlspecialchars($loginUser['data']['second_name']) ?><br>id: <?= htmlspecialchars($loginUser['data']['id']) ?><br>email: <?= htmlspecialchars($loginUser['data']['email']) ?></h4>
+    </section>
+
+    <section class="add_form">
+        <?php require '../assets/form_photos.php'; ?>
     </section>
 
 </main>

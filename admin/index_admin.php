@@ -1,11 +1,10 @@
 <?php 
+    session_start(); // spustíme session pro ukládání hlášek o úspěchu nebo chybě a kontrola přihlášení
     require '../classes/Auth.php';
     require '../classes/Database.php';
     require '../classes/UserDB.php';
     require '../classes/Url.php';
-
-    session_start(); // spustíme session pro ukládání hlášek o úspěchu nebo chybě a kontrola přihlášení
-
+    
     Auth::requireLogin();
 
     $dbClass = new Database();
@@ -25,7 +24,8 @@
         <section>
             <img src="../img/ela_kruh.png" alt="">
             <h1>NIGHT_DEPO</h1>
-            <h2>Přihlášen: <?= htmlspecialchars($loginUser['data']['first_name']) ?> <?= htmlspecialchars($loginUser['data']['second_name']) ?> id: <?= htmlspecialchars($loginUser['data']['id']) ?></h2>
+            <h2>Přihlášen: <?= htmlspecialchars($loginUser['data']['first_name']) ?> <?= htmlspecialchars($loginUser['data']['second_name']) ?> id: <?= htmlspecialchars($loginUser['data']['id']) ?></h2><br>
+            
         </section>
     </main>
 

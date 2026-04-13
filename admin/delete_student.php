@@ -1,10 +1,9 @@
 <?php
+    session_start(); // spustíme session pro ukládání hlášek o úspěchu nebo chybě
     require '../classes/Auth.php';
     require '../classes/Database.php';
     require '../classes/StudentsDB.php';
     require '../classes/Url.php';
-
-    session_start(); // spustíme session pro ukládání hlášek o úspěchu nebo chybě
 
     Auth::requireLogin();
 
@@ -16,11 +15,7 @@
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $result = StudentsDB::deleteStudent($conn, $id); // zavoláme funkci pro smazání studenta z databáze a uložíme výsledek do proměnné $result
-        session_regenerate_id(true); // zabranuje provedení fixation attack
-        $_SESSION['success_message'] = [
-                    'text' => $result,
-                    'type' => 'error'
-                ]; // Uložíme do session zprávu o úspěšném přidání studenta, aby se zobrazila na další stránce
+        Url::flashMessage($result,'error'); // Uložíme do session zprávu o úspěšném přidání studenta, aby se zobrazila na další stránce
         Url::redirectUrl("../admin/all_students.php"); // přesměrujeme na stránku se seznamem studentů
         exit(); // ukončíme skript, aby se zabránilo dalšímu vykonávání kódu po přesměrování
     }

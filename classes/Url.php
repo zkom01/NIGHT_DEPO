@@ -19,8 +19,15 @@ class Url {
             $protocol = "http";
         }
 
-        return header("Location: $protocol://" . $_SERVER['HTTP_HOST'] . "/$path"); // přesměrujeme na zadanou URL
+        header("Location: $protocol://" . $_SERVER['HTTP_HOST'] . "/$path"); // přesměrujeme na zadanou URL
         exit;
+    }
+
+    public static function flashMessage ($text_message, $type){
+        $_SESSION['success_message'] = [
+            'text' => $text_message,
+            'type' => $type
+        ];
     }
 }
 

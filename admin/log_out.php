@@ -1,7 +1,6 @@
 <?php
-    require '../classes/Url.php';
-
     session_start(); // pro přístup k $_SESSION 
+    require '../classes/Url.php';
 
     // Unset all of the session variables.
     $_SESSION = array();
@@ -21,7 +20,7 @@
 
     session_start(); // pro přístup k $_SESSION 
     session_regenerate_id(true); // zabranuje provedení fixation attack
-    $_SESSION['success_message'] = ['text' => "Odhlášení proběhlo úspěšně", 'type' => ''];
+    Url::flashMessage('Odhlášení proběhlo úspěšně','');
     Url::redirectUrl("../index.php");
     exit(); // Zastaví vykonávání skriptu
 

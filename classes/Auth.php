@@ -16,14 +16,8 @@ class Auth {
      */
     public static function requireLogin() {
         if (!self::isLoggedIn()) {
-            // Zabezpečení proti session fixation
-            session_regenerate_id(true); 
-            
-            $_SESSION['success_message'] = [
-                'text' => "NEPOVOLENÝ PŘÍSTUP", 
-                'type' => 'error'
-            ];
-            
+
+            Url::flashMessage('NEPOVOLENÝ PŘÍSTUP!!','error');
             Url::redirectUrl("../index.php");
             exit();
         }

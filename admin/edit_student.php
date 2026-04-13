@@ -1,10 +1,9 @@
 <?php
+    session_start(); // spustíme session pro správu uživatelských relací
     require '../classes/Auth.php';
     require '../classes/Database.php';
     require '../classes/StudentsDB.php';
     require '../classes/Url.php';
-
-    session_start(); // spustíme session pro správu uživatelských relací
 
     Auth::requireLogin();
 
@@ -37,11 +36,7 @@
         $result = StudentsDB::editStudent($conn, $id, $first_name, $second_name, $age, $life, $college); // zavoláme funkci pro úpravu informací o studentovi a uložíme výsledek do proměnné $result
 
         if ($result) {
-            session_regenerate_id(true); // zabranuje provedení fixation attack
-            $_SESSION['success_message'] = [
-                'text' => $result,
-                'type' => ''
-            ]; // Uložíme do session zprávu o úspěšném přidání studenta, aby se zobrazila na další stránce
+            Url::flashMessage($result,''); // Uložíme do session zprávu o úspěšném přidání studenta, aby se zobrazila na další stránce
             Url::redirectUrl("../admin/one_student.php?id=" . $id); // přesměrujeme na stránku s detaily studenta
             exit; // ukončí skript, aby se zabránilo dalšímu vykonávání po přesměrování
         }
