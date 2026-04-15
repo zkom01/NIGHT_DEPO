@@ -36,7 +36,7 @@
         $result = StudentsDB::editStudent($conn, $id, $first_name, $second_name, $age, $life, $college); // zavoláme funkci pro úpravu informací o studentovi a uložíme výsledek do proměnné $result
 
         if ($result) {
-            Url::flashMessage($result,''); // Uložíme do session zprávu o úspěšném přidání studenta, aby se zobrazila na další stránce
+            Url::flashMessage($result,'success'); // Uložíme do session zprávu o úspěšném přidání studenta, aby se zobrazila na další stránce
             Url::redirectUrl("../admin/one_student.php?id=" . $id); // přesměrujeme na stránku s detaily studenta
             exit; // ukončí skript, aby se zabránilo dalšímu vykonávání po přesměrování
         }

@@ -3,6 +3,7 @@
     require '../classes/Auth.php';
     require '../classes/Database.php';
     require '../classes/UserDB.php';
+    require '../classes/PhotoDB.php';
     require '../classes/Url.php';
 
 
@@ -11,9 +12,11 @@
     $dbClass = new Database();
     $conn = $dbClass->connectionDB();
 
-    $id = $_SESSION['log_in_user_id'];
+    $user_id = $_SESSION['log_in_user_id'];
 
-    $loginUser = UserDB::infoUser($conn,$id);
+    $loginUser = UserDB::infoUser($conn,$user_id);
+
+    $all_images = PhotoDB::allImgByUser($conn, $user_id);
 ?>
 
 <?php 
@@ -32,7 +35,23 @@
     </section>
 
     <section class="add_form">
-        <?php require '../assets/form_photos.php'; ?>
+        <?php require '../assets/form_photo.php'; ?>
+    </section>
+
+    <section class="images">
+        <article class="align_left">
+            <?php foreach ($all_images['data'] as $one_img): ?>
+                <div>
+                    <div>
+                        <img src="../uploads/<?= htmlspecialchars($user_id) ?>/<?= htmlspecialchars($one_img['image_name']) ?>" alt="<?= $one_img['image_name'] ?>">
+                    </div>
+                    <div>
+                        <a href="../uploads/<?= htmlspecialchars($user_id) ?>/<?= htmlspecialchars($one_img['image_name']) ?>" download>Stáhnout</a>
+                        <a href="../admin/delete_photo.php?id=<?= htmlspecialchars($one_img['image_id']) ?>">smazat</a>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </article>
     </section>
 
 </main>

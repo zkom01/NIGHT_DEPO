@@ -1,4 +1,4 @@
-<form action="./after_photos.php" method="POST" enctype="multipart/form-data">
+<form action="./upload_photo.php" method="POST" enctype="multipart/form-data">
     <input 
         type="file" 
         name="image"

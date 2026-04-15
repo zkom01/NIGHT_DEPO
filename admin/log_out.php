@@ -20,7 +20,7 @@
 
     session_start(); // pro přístup k $_SESSION 
     session_regenerate_id(true); // zabranuje provedení fixation attack
-    Url::flashMessage('Odhlášení proběhlo úspěšně','');
+    Url::flashMessage('Odhlášení proběhlo úspěšně','success');
     Url::redirectUrl("../index.php");
     exit(); // Zastaví vykonávání skriptu
 

@@ -15,7 +15,7 @@
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $result = StudentsDB::deleteStudent($conn, $id); // zavoláme funkci pro smazání studenta z databáze a uložíme výsledek do proměnné $result
-        Url::flashMessage($result,'error'); // Uložíme do session zprávu o úspěšném přidání studenta, aby se zobrazila na další stránce
+        Url::flashMessage($result,'error');
         Url::redirectUrl("../admin/all_students.php"); // přesměrujeme na stránku se seznamem studentů
         exit(); // ukončíme skript, aby se zabránilo dalšímu vykonávání kódu po přesměrování
     }
@@ -33,7 +33,7 @@
     <section class="align_left">
         <?php if (is_array($oneStudent)): ?>
             <section class="buttons-container">
-                <form method="post" style="display: flex; gap: 20px;">
+                <form method="post">
                         <a href="../admin/one_student.php?id=<?= $id ?>" class="btn btn-primary">Ne, zpět</a>
                         <button type="submit" class="btn btn-secondary">Ano, smazat</button>
                 </form>
@@ -44,7 +44,7 @@
             <p>Život: <?= htmlspecialchars($oneStudent['life']) ?></p>
             <p>Škola: <?= htmlspecialchars($oneStudent['college']) ?></p>
         <?php else: ?>
-            <p>"Student s ID <?= htmlspecialchars($id) ?> nebyl nalezen v databázi."</p>
+            <p><?= htmlspecialchars($oneStudent) ?></p>
             <a href="../admin/all_students.php" class="btn btn-primary">Zpět na seznam studentů</a>
         <?php endif ?>
     </section>

@@ -23,14 +23,14 @@
             $_SESSION['is_log_in'] = true; // informace že je uživatel přihlášený
             $_SESSION['log_in_user_id'] = $id; // id přihlášeného uživatele
 
-            Url::flashMessage($result['message'],'');
+            Url::flashMessage($result['message'],'success');
             Url::redirectUrl("../admin/index_admin.php"); 
             exit; // ukončí skript, aby se zabránilo dalšímu vykonávání po přesměrování
         }
         else {
             session_regenerate_id(true); // zabranuje provedení fixation attack
-            Url::flashMessage($result['message'],'error'); // Uložíme do session zprávu o úspěšném přihlášení uživatele, aby se zobrazila na další stránce
-            Url::redirectUrl("../login.php"); // přesměrujeme na stránku s detaily studenta
+            Url::flashMessage($result['message'],'error');
+            Url::redirectUrl("../login.php");
             exit; // ukončí skript, aby se zabránilo dalšímu vykonávání po přesměrování
         }
     } else {

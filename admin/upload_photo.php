@@ -2,12 +2,12 @@
 session_start(); // spustíme session pro správu uživatelských relací
 require '../classes/Auth.php';
 require '../classes/Database.php';
-require '../classes/UserDB.php';
+require '../classes/PhotoDB.php';
 require '../classes/Url.php';
 
     Auth::requireLogin();
 
-    $id = $_SESSION['log_in_user_id'];
+    $user_id = $_SESSION['log_in_user_id'];
 
     if(isset($_POST["submit"]) && isset($_FILES["image"])){
 
@@ -19,7 +19,7 @@ require '../classes/Url.php';
         $image_tmp_name = $_FILES["image"]["tmp_name"];
         $image_error = $_FILES["image"]["error"];
         $image_extension = strtolower(pathinfo($image_name, PATHINFO_EXTENSION)); // vytáhne koncovku souboru
-        $allowed_extension = ["jpg", "jpeg", "gif", "webp", "png"];
+        $allowed_extension = ["jpg", "jpeg", "gif", "webp", "png", "svg"];
 
         if ($image_error === 0){
             if ($image_size > 9000000){
@@ -29,7 +29,21 @@ require '../classes/Url.php';
 
             } else {
                 if (in_array($image_extension, $allowed_extension)){
-                    
+                    $new_image_name = uniqid("IMG_", true) . "." . $image_extension;
+
+                    if(!file_exists("../uploads/" . $user_id)){
+                        mkdir("../uploads/" . $user_id, 0777, true);
+                    }
+                    $image_upload_path = "../uploads/" . $user_id . "/" . $new_image_name;
+                    move_uploaded_file($image_tmp_name, $image_upload_path);
+
+                    $result = PhotoDB::addImg($conn, $user_id, $new_image_name);
+                    if ($result) {
+                        Url::flashMessage($result['message'], "success");
+                        Url::redirectUrl("../admin/photos.php");
+                        exit; // ukončí skript, aby se zabránilo dalšímu vykonávání po přesměrování
+                    }
+
                 } else {
                     Url::flashMessage('Nepodporovaný typ souboru.','error');
                     Url::redirectUrl("../admin/photos.php");
@@ -45,25 +59,3 @@ require '../classes/Url.php';
     }
 
 ?>
-
-<?php 
-    $pageTitle = "After Photos"; // Tady definujete název stránky, který se zobrazí v záložce prohlížeče
-    require '../assets/header_admin.php'; ?> <!-- přidáme hlavičku stránky -->
-
-<?php require '../assets/flash_message.php'; ?> <!-- přidáme soubor pro zobrazení hlášek -->
-
-<main>
-    <section>
-        <h1>stranka pro odeslání photo</h1>
-    </section>
-    <section  class='align_left'>
-        <p>Název souboru: <?= $image_name?></p>
-        <p>Velikost souboru: <?= $image_size?></p>
-        <p>Umístění souboru: <?= $image_tmp_name?></p>
-        <p>Error: <?= $image_error?></p>
-        <p>Koncovka souboru: <?= $image_extension?></p>
-    </section>
-
-</main>
-
-<?php require '../assets/footer.php'; ?>

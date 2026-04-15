@@ -20,7 +20,7 @@
         if (!$emailDB['success']){
             $result = UserDB::addUser($conn, $first_name, $second_name, $email, $heslo); // zavoláme funkci pro přidání uživatele a uložíme vrácenou zprávu do proměnné $result
         } else {
-            Url::flashMessage("Zadaný e-mail " . $emailDB['data']['email'] ." již v databázi existuje','error");
+            Url::flashMessage('Zadaný e-mail ' . $emailDB['data']['email'] .' již v databázi existuje.' , 'error');
 
             // Uložíme odeslaná data, abychom je mohli vrátit do formuláře
             $_SESSION['form_data'] = [
@@ -43,7 +43,7 @@
             $_SESSION['is_log_in'] = true; // informace že je uživatel přihlášený
             $_SESSION['log_in_user_id'] = $id; // id přihlášeného uživatele
 
-            Url::flashMessage($result['message'],'');// Uložíme do session zprávu o úspěšném přidání uživatele, aby se zobrazila na další stránce
+            Url::flashMessage($result['message'],'success');// Uložíme do session zprávu o úspěšném přidání uživatele, aby se zobrazila na další stránce
 
             Url::redirectUrl("../admin/index_admin.php"); // přesměrujeme na stránku s detaily studenta
             exit; // ukončí skript, aby se zabránilo dalšímu vykonávání po přesměrování

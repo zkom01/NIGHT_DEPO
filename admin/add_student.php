@@ -22,7 +22,7 @@
         $result = StudentsDB::addStudent($conn, $first_name, $second_name, $age, $life, $college);
 
         if ($result) {
-            Url::flashMessage("$result", ""); // Uložíme do session zprávu o úspěšném přidání studenta, aby se zobrazila na stránce s detaily studenta
+            Url::flashMessage("$result", "success"); // Uložíme do session zprávu o úspěšném přidání studenta, aby se zobrazila na stránce s detaily studenta
             $id = $conn->lastInsertId(); // získáme ID editovaného žáka 
             Url::redirectUrl("../admin/one_student.php?id=" . $id); // přesměrujeme na stránku s detaily studenta
             exit; // ukončí skript, aby se zabránilo dalšímu vykonávání po přesměrování
