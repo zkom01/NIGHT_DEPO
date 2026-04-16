@@ -4,7 +4,7 @@
     require './classes/Url.php';
 
     if(Auth::isLoggedIn()){
-        Url::flashMessage("Jste stále přihlášen.", "success");
+        // Url::flashMessage("Jste stále přihlášen.", "success");
         Url::redirectUrl("./admin/index_admin.php"); 
     }
 

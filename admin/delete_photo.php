@@ -6,6 +6,7 @@
     require '../classes/Url.php';
 
     Auth::requireLogin();
+    
     $user_id = $_SESSION['log_in_user_id'];
 
     $dbClass = new Database();

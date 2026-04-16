@@ -15,9 +15,9 @@ class UserDB {
      * @param string $heslo Již zahashované heslo (např. pomocí password_hash).
      * @return array Pole s klíčem 'success' (bool) a 'message' (string).
      */
-    public static function addUser($conn, $first_name, $second_name, $email, $heslo) {
-        $sql = "INSERT INTO user (first_name, second_name, email, heslo) 
-                VALUES (:first_name, :second_name, :email, :heslo)";
+    public static function addUser($conn, $first_name, $second_name, $email, $heslo, $role) {
+        $sql = "INSERT INTO user (first_name, second_name, email, heslo, role) 
+                VALUES (:first_name, :second_name, :email, :heslo, :role)";
 
         try {
             $statement = $conn->prepare($sql);
@@ -26,12 +26,13 @@ class UserDB {
             $statement->bindValue(":second_name", $second_name, PDO::PARAM_STR);
             $statement->bindValue(":email", $email, PDO::PARAM_STR);
             $statement->bindValue(":heslo", $heslo, PDO::PARAM_STR);
+            $statement->bindValue(":role", $role, PDO::PARAM_STR);
 
             $result = $statement->execute();
 
             return [
                 "success" => true,
-                "message" => "Uživatel úspěšně přidán."
+                "message" => "Uživatel úspěšně přidán.",
             ];
 
         } catch (PDOException $e) {
@@ -48,10 +49,10 @@ class UserDB {
      * @param PDO $conn Objekt připojení k databázi.
      * @param string $email E-mailová adresa zadaná při přihlášení.
      * @param string $heslo Heslo v textové podobě (bude ověřeno proti hashi).
-     * @return array Výsledek přihlášení obsahující success, message a případně ID uživatele.
+     * @return array Výsledek přihlášení obsahující success, message, ID uživatele a role(admin,user).
      */
     public static function checkUser($conn, $email, $heslo) {
-        $sql = "SELECT id, heslo FROM user 
+        $sql = "SELECT id, heslo, role FROM user 
                 WHERE email = :email";
 
         try {
@@ -66,13 +67,15 @@ class UserDB {
                 return [
                     "success" => true,
                     "id" => $data['id'],
-                    "message" => "Úspěšné přihlášení."
+                    "message" => "Úspěšné přihlášení.",
+                    "role" => $data['role']
                 ];
             } else {
                 return [
                     "success" => false,
                     "id" => null,
-                    "message" => "Uživatel nenalezen nebo špatné heslo."
+                    "message" => "Uživatel nenalezen nebo špatné heslo.",
+                    "role" => null
                 ];
             }
         } catch (PDOException $e) {

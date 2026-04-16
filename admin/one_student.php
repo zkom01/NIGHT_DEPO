@@ -39,8 +39,10 @@
                 <p>Škola: <?= htmlspecialchars($oneStudent['college']) ?></p>
         </div>
                 <section class="buttons-container">
-                    <a href="edit_student.php?id=<?= $id ?>" class="btn btn-primary">Upravit žáka</a>
-                    <a href="delete_student.php?id=<?= $id ?>" class="btn btn-secondary">Smazat žáka</a>
+                    <?php if ($_SESSION['role_user_log_in']==="admin"):?>
+                        <a href="edit_student.php?id=<?= $id ?>" class="btn btn-primary">Upravit žáka</a>
+                        <a href="delete_student.php?id=<?= $id ?>" class="btn btn-secondary">Smazat žáka</a>
+                    <?php endif ?>
                     <a href="all_students.php" class="btn btn-primary">Seznam žáků</a>
                 </section>
 

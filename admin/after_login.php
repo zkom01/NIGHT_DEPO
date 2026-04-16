@@ -22,6 +22,7 @@
 
             $_SESSION['is_log_in'] = true; // informace že je uživatel přihlášený
             $_SESSION['log_in_user_id'] = $id; // id přihlášeného uživatele
+            $_SESSION['role_user_log_in'] = $result['role'];
 
             Url::flashMessage($result['message'],'success');
             Url::redirectUrl("../admin/index_admin.php"); 

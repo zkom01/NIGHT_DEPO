@@ -20,14 +20,14 @@
 ?>
 
 <?php 
-    $pageTitle = "Photos"; // Tady definujete název stránky, který se zobrazí v záložce prohlížeče
+    $pageTitle = "Fotky"; // Tady definujete název stránky, který se zobrazí v záložce prohlížeče
     require '../assets/header_admin.php'; ?> <!-- přidáme hlavičku stránky -->
 
 <?php require '../assets/flash_message.php'; ?> <!-- přidáme soubor pro zobrazení hlášek -->
 
 <main>
     <section  class='main_heading'>
-        <h1>Photos</h1>
+        <h1>Fotky</h1>
     </section>
 
     <section>

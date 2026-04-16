@@ -66,8 +66,10 @@
         <nav>
             <ul>
                 <li><a href="../admin/all_students.php">Seznam žáků</a></li>
-                <li><a href="../admin/add_student.php">Přidat žáka</a></li>
-                <li><a href="../admin/photos.php">Photos</a></li>
+                <?php if ($_SESSION['role_user_log_in']==="admin"):?>
+                    <li><a href="../admin/add_student.php">Přidat žáka</a></li>
+                <?php endif ?>
+                <li><a href="../admin/photos.php">Fotky</a></li>
                 <li><a href="../admin/log_out.php">Odhlásit</a></li>
             </ul>
         </nav>

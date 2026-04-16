@@ -14,11 +14,12 @@
         $second_name = $_POST['second_name'];
         $email = $_POST['email'];
         $heslo= password_hash($_POST['heslo'],PASSWORD_DEFAULT); // HASH HESLA
+        $role = "user";
 
         $emailDB = UserDB::checkUserbyEmail($conn,$email);
         
         if (!$emailDB['success']){
-            $result = UserDB::addUser($conn, $first_name, $second_name, $email, $heslo); // zavoláme funkci pro přidání uživatele a uložíme vrácenou zprávu do proměnné $result
+            $result = UserDB::addUser($conn, $first_name, $second_name, $email, $heslo, $role); // zavoláme funkci pro přidání uživatele a uložíme vrácenou zprávu do proměnné $result
         } else {
             Url::flashMessage('Zadaný e-mail ' . $emailDB['data']['email'] .' již v databázi existuje.' , 'error');
 
@@ -42,6 +43,7 @@
 
             $_SESSION['is_log_in'] = true; // informace že je uživatel přihlášený
             $_SESSION['log_in_user_id'] = $id; // id přihlášeného uživatele
+            $_SESSION['role_user_log_in'] = $role; 
 
             Url::flashMessage($result['message'],'success');// Uložíme do session zprávu o úspěšném přidání uživatele, aby se zobrazila na další stránce
 
