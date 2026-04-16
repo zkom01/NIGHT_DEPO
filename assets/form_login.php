@@ -14,6 +14,8 @@
         autocomplete="current-password" 
         required
     >
+
+    <p>&nbsp;</p>
     
     <section class="buttons-container">
         <button type="submit" class="btn btn-primary">Přihlsit</button>

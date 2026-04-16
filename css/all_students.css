@@ -1,0 +1,27 @@
+.all_students {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.one_student {
+    width: 300px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgb(0, 0, 0, 0.2);
+    border: 2px solid #BDD9F2; /* Vaše světle modrá */
+    border-radius: 6px;
+    transition: all 0.1s linear;
+
+}
+
+.one_student:hover {
+    transform: scale(1.02);
+}

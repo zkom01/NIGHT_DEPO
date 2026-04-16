@@ -30,24 +30,26 @@
         <h1>Photos</h1>
     </section>
 
-    <section class="align_left">
-        <h4>Přihlášen: <?= htmlspecialchars($loginUser['data']['first_name']) ?> <?= htmlspecialchars($loginUser['data']['second_name']) ?><br>id: <?= htmlspecialchars($loginUser['data']['id']) ?><br>email: <?= htmlspecialchars($loginUser['data']['email']) ?></h4>
+    <section>
+        <h2>Přihlášen: <?= htmlspecialchars($loginUser['data']['first_name']) ?> <?= htmlspecialchars($loginUser['data']['second_name']) ?></h2>
     </section>
 
     <section class="add_form">
         <?php require '../assets/form_photo.php'; ?>
     </section>
 
-    <section class="images">
-        <article class="align_left">
+    <section>
+        <article class="all_photos">
             <?php foreach ($all_images['data'] as $one_img): ?>
-                <div>
+                <div class="one_photo">
                     <div>
                         <img src="../uploads/<?= htmlspecialchars($user_id) ?>/<?= htmlspecialchars($one_img['image_name']) ?>" alt="<?= $one_img['image_name'] ?>">
                     </div>
                     <div>
-                        <a href="../uploads/<?= htmlspecialchars($user_id) ?>/<?= htmlspecialchars($one_img['image_name']) ?>" download>Stáhnout</a>
-                        <a href="../admin/delete_photo.php?id=<?= htmlspecialchars($one_img['image_id']) ?>">smazat</a>
+                        <section class="buttons-container">
+                            <a href="../uploads/<?= htmlspecialchars($user_id) ?>/<?= htmlspecialchars($one_img['image_name']) ?>" class="btn btn-primary" download >Stáhnout</a>
+                            <a href="../admin/delete_photo.php?id=<?= htmlspecialchars($one_img['image_id']) ?>" class="btn btn-secondary">Smazat</a>
+                        </section>
                     </div>
                 </div>
             <?php endforeach; ?>

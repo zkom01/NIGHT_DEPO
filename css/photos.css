@@ -1,0 +1,68 @@
+.all_photos {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.one_photo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 2px solid #BDD9F2;
+    border-radius: 6px;
+    transition: all 0.1s linear;
+}
+
+.one_photo:hover {
+    transform: scale(1.02);
+}
+
+/* Obal obrázku - ten se roztáhne a vytlačí tlačítka dolů */
+.one_photo > div:first-child {
+    flex-grow: 1;
+    display: flex;
+    align-items: center; /* Vycentruje obrázek vertikálně v rámci volného prostoru */
+}
+
+.one_photo img {
+    display: block;
+    max-width: 300px;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+/* Zbytek tvých původních stylů ponechávám */
+.one_photo_card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 2px solid #BDD9F2;
+    border-radius: 6px;
+    transition: all 0.1s linear;
+    margin-top: 15px;
+}
+
+.text_photo_container {
+    margin: 0 auto;
+    font-size: 20px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.text_photo_container img {
+    display: block;
+    max-width: 300px;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+@media (min-width: 470px) {
+  .one_photo_card {
+    min-width: 470px;
+  }
+}

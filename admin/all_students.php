@@ -20,23 +20,27 @@
 
 <?php require '../assets/flash_message.php'; ?> <!-- přidáme soubor pro zobrazení hlášek -->
 
-    <main>
-        <section class="main_heading">
-            <h1>Žáci</h1>
-        </section>
+<main>
+    <section class="main_heading">
+        <h1>Žáci</h1>
+    </section>
 
-        <section class="align_left">
-            <ul>
-
-            <?php foreach ($students as $one_student): ?>
-                <li>
-                    <?= htmlspecialchars($one_student['first_name']) . " " . htmlspecialchars($one_student['second_name']) ?>
-                </li>
-                <a href="one_student.php?id=<?= $one_student['id'] ?>" class="btn btn-primary">Detail</a>
-            <?php endforeach; ?>
-
-            </ul>           
-        </section>
-    </main>
+    <section>
+        <?php if(empty($students)):?>
+            <h2>Žádní žáci nebyli nalezeni.</h2>
+        <?php else:?>
+            <div class="all_students">
+                <?php foreach ($students as $one_student): ?>
+                    <div class="one_student">
+                        <h2><?= htmlspecialchars($one_student['first_name']) . " " . htmlspecialchars($one_student['second_name']) ?></h2>
+                        <section class="buttons-container">
+                            <a href="one_student.php?id=<?= $one_student['id'] ?>" class="btn btn-primary">Detail</a>
+                        </section>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif;?>           
+    </section>
+</main>
 
 <?php require '../assets/footer.php'; ?>

@@ -30,22 +30,28 @@
         <h1>Smazání studenta</h1>
     </section>
  
-    <section class="align_left">
+    <section class="one_student_card">
         <?php if (is_array($oneStudent)): ?>
-            <section class="buttons-container">
-                <form method="post">
-                        <a href="../admin/one_student.php?id=<?= $id ?>" class="btn btn-primary">Ne, zpět</a>
-                        <button type="submit" class="btn btn-secondary">Ano, smazat</button>
-                </form>
-            </section>
-
-            <h2><?= htmlspecialchars($oneStudent['first_name']) . " " . htmlspecialchars($oneStudent['second_name']) ?></h2>
-            <p>Věk: <?= htmlspecialchars($oneStudent['age']) ?></p>
-            <p>Život: <?= htmlspecialchars($oneStudent['life']) ?></p>
-            <p>Škola: <?= htmlspecialchars($oneStudent['college']) ?></p>
+            <div class="text_container">
+                <h2><?= htmlspecialchars($oneStudent['first_name']) . " " . htmlspecialchars($oneStudent['second_name']) ?></h2>
+                <p>Věk: <?= htmlspecialchars($oneStudent['age']) ?></p>
+                <p>Život: <?= htmlspecialchars($oneStudent['life']) ?></p>
+                <p>Škola: <?= htmlspecialchars($oneStudent['college']) ?></p>
+            </div>
+            
+            <form method="post">
+                <section class="buttons-container">
+                    <a href="../admin/one_student.php?id=<?= $id ?>" class="btn btn-primary">Ne, zpět</a>
+                    <button type="submit" class="btn btn-secondary">Ano, smazat</button>
+                </section>
+            </form>
+            
+            
         <?php else: ?>
-            <p><?= htmlspecialchars($oneStudent) ?></p>
-            <a href="../admin/all_students.php" class="btn btn-primary">Zpět na seznam studentů</a>
+            <h2><?= htmlspecialchars($oneStudent) ?></h2>
+                <section class="buttons-container">
+                    <a href="../admin/all_students.php" class="btn btn-primary">Zpět na seznam studentů</a>
+                <section>
         <?php endif ?>
     </section>
 

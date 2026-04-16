@@ -17,7 +17,16 @@
     <!-- styl pro index -->
     <link rel="stylesheet" href="../css/index.css?v=<?php echo filemtime('../css/index.css'); ?>">
 
-    <!-- styl pro formhp -->
+    <!-- styl pro all_students -->
+    <link rel="stylesheet" href="../css/all_students.css?v=<?php echo filemtime('../css/all_students.css'); ?>">
+
+    <!-- styl pro one_students -->
+    <link rel="stylesheet" href="../css/one_student.css?v=<?php echo filemtime('../css/one_student.css'); ?>">
+
+    <!-- styl pro photos -->
+    <link rel="stylesheet" href="../css/photos.css?v=<?php echo filemtime('../css/photos.css'); ?>">
+
+    <!-- styl pro form -->
     <link rel="stylesheet" href="../css/form.css?v=<?php echo filemtime('../css/form.css'); ?>">
     <link rel="stylesheet" href="../css/query/form_query.css?v=<?php echo filemtime('../css/query/form_query.css'); ?>">
 

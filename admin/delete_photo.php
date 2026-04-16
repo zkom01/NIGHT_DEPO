@@ -32,23 +32,25 @@
         <h1>Smazání obrázku</h1>
     </section>
  
-    <section class="align_left">
+    <section class="one_photo_card">
         <?php if (is_array($one_image)): ?>
-            <section class="buttons-container">
-                <form method="post">
-                        <a href="../admin/photos.php" class="btn btn-primary">Ne, zpět</a>
-                        <button type="submit" class="btn btn-secondary">Ano, smazat</button>
-                </form>
-            </section>
 
-            <section class="align_center">
-                <h4><?= htmlspecialchars($one_image['image_name']) ?></h4>
+            <section class="text_photo_container">
                 <img src="../uploads/<?= htmlspecialchars($user_id) ?>/<?= htmlspecialchars($one_image['image_name']) ?>" alt="<?= $one_image['image_name'] ?>">
             </section>
 
+            <form method="post">
+                <section class="buttons-container">
+                    <a href="../admin/photos.php" class="btn btn-primary">Ne, zpět</a>
+                    <button type="submit" class="btn btn-secondary">Ano, smazat</button>
+                </section>
+            </form>
+
         <?php else: ?>
             <p><?= htmlspecialchars($one_image) ?></p>
-            <a href="../admin/photos.php" class="btn btn-primary">Zpět na seznam obrázků</a>
+            <section class="buttons-container">
+                <a href="../admin/photos.php" class="btn btn-primary">Zpět na seznam obrázků</a>
+            <section>
         <?php endif ?>
     </section>
 

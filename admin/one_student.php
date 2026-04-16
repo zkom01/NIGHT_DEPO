@@ -30,23 +30,27 @@
         <h1>Informace o&nbsp;studentovi</h1>
     </section>
 
-    <section class="align_left">
-        <?php if (is_array($oneStudent)): ?>
-            <h2><?= htmlspecialchars($oneStudent['first_name']) . " " . htmlspecialchars($oneStudent['second_name']) ?></h2>
-            <p>Věk: <?= htmlspecialchars($oneStudent['age']) ?></p>
-            <p>Život: <?= htmlspecialchars($oneStudent['life']) ?></p>
-            <p>Škola: <?= htmlspecialchars($oneStudent['college']) ?></p>
+    <section class="one_student_card">
+        <div class="text_container">
+            <?php if (is_array($oneStudent)): ?>
+                <h2><?= htmlspecialchars($oneStudent['first_name']) . " " . htmlspecialchars($oneStudent['second_name']) ?></h2>
+                <p>Věk: <?= htmlspecialchars($oneStudent['age']) ?></p>
+                <p>Život: <?= htmlspecialchars($oneStudent['life']) ?></p>
+                <p>Škola: <?= htmlspecialchars($oneStudent['college']) ?></p>
+        </div>
+                <section class="buttons-container">
+                    <a href="edit_student.php?id=<?= $id ?>" class="btn btn-primary">Upravit žáka</a>
+                    <a href="delete_student.php?id=<?= $id ?>" class="btn btn-secondary">Smazat žáka</a>
+                    <a href="all_students.php" class="btn btn-primary">Seznam žáků</a>
+                </section>
 
-            <section class="buttons-container">
-                <a href="edit_student.php?id=<?= $id ?>" class="btn btn-primary">Upravit žáka</a>
-                <a href="delete_student.php?id=<?= $id ?>" class="btn btn-secondary">Smazat žáka</a>
-                <a href="all_students.php" class="btn btn-primary">Seznam žáků</a>
-            </section>
-
-        <?php else: ?>
-            <p>"Student s ID <?= htmlspecialchars($id) ?> nebyl nalezen v databázi."</p>
-            <a href="all_students.php" class="btn btn-primary">Zpět na seznam studentů</a>
-        <?php endif ?>
+            <?php else: ?>
+                <h2>"Student s ID <?= htmlspecialchars($id) ?> nebyl nalezen v databázi."</h2>
+                <section class="buttons-container">
+                    <a href="all_students.php" class="btn btn-primary">Zpět na seznam studentů</a>
+                </section>
+            <?php endif ?>
+        
     </section>
 
 </main>
