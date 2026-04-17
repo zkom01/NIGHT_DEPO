@@ -53,7 +53,7 @@ $e_mail = $formData['email'] ?? '';
     <p class="result_text">&nbsp;</p>
     
     <section class="buttons-container">
-        <button type="submit" class="btn btn-primary">Registrovat</button>
+        <button type="submit" id="hiden" class="btn btn-primary">Registrovat</button>
         <a href="index.php" class="btn btn-secondary">Zpět</a>
     </section>
 

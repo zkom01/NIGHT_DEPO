@@ -25,6 +25,12 @@
         <h1>Žáci</h1>
     </section>
 
+    <section class="add_form">
+        <input type="text"
+               class = "search_text" 
+               placeholder="Začněte psát">
+    </section>
+
     <section>
         <?php if(empty($students)):?>
             <h2>Žádní žáci nebyli nalezeni.</h2>

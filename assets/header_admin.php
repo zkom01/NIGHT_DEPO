@@ -45,6 +45,9 @@
     <!-- script pro hamburger menu defer = načte se až se načte celá stránka -->
     <script src="../js/header.js?v=<?php echo filemtime('../js/header.js'); ?>" defer></script>
 
+    <!-- script pro filtr all_students -->
+    <script src="../js/filter_all_students.js?v=<?php echo filemtime('../js/filter_all_students.js'); ?>" defer></script>
+
    
 
     <title>

@@ -60,7 +60,7 @@
             <ul>
                 <li><a href="./index.php">Úvodní strana</a></li>
                 <li><a href="./login.php">Přihlášení</a></li>
-                <li><a href="./oop.php">učím se</a></li>
+                <li><a href="./contact.php">Kontakt</a></li> 
             </ul>
         </nav>
 
