@@ -2,7 +2,7 @@ const password1 = document.querySelector(".password_first")
 const password2 = document.querySelector(".password_second")
 const paragrphText = document.querySelector(".result_text")
 // Vybereme submit tlačítko uvnitř kontejneru
-const submitBtn = document.querySelector("#hiden") // tlačítko podle ID "hiden"
+const submitBtn = document.getElementById("hiden") // tlačítko podle ID "hiden"
 
 const checkPasswords = () => {
     const p1 = password1.value

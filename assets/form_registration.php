@@ -12,6 +12,7 @@ $e_mail = $formData['email'] ?? '';
         name="first_name" 
         placeholder="Křestní jméno" 
         value="<?= htmlspecialchars($f_name) ?>" 
+        pattern="\S+.*"
         required
     >
 
@@ -20,6 +21,7 @@ $e_mail = $formData['email'] ?? '';
         name="second_name" 
         placeholder="Příjmení" 
         value="<?= htmlspecialchars($s_name) ?>" 
+        pattern="\S+.*"
         required
     >
 

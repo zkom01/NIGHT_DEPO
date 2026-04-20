@@ -4,6 +4,7 @@
         name="first_name" 
         placeholder="Křestní jméno" 
         value="<?= htmlspecialchars($first_name) ?>" 
+        pattern="\S+.*"
         required
     >
 
@@ -12,6 +13,7 @@
         name="second_name" 
         placeholder="Příjmení" 
         value="<?= htmlspecialchars($second_name) ?>" 
+        pattern="\S+.*"
         required
     >
 
@@ -28,6 +30,7 @@
         name="life" 
         placeholder="Podrobnosti o žákovi" 
         required
+        pattern="\S+.*"
     ><?= htmlspecialchars($life) ?></textarea>
 
     <select 
