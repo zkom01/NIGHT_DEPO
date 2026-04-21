@@ -48,6 +48,9 @@
     <!-- script pro filtr all_students -->
     <script src="../js/filter_all_students.js?v=<?php echo filemtime('../js/filter_all_students.js'); ?>" defer></script>
 
+    <!-- script pro photos název vybraného souboru -->
+    <script src="../js/chose_file.js?v=<?php echo filemtime('../js/chose_file.js'); ?>" defer></script>
+
    
 
     <title>

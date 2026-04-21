@@ -8,7 +8,7 @@ require '../classes/Url.php';
     Auth::requireLogin();
 
     $user_id = $_SESSION['log_in_user_id'];
-
+ 
     if(isset($_POST["submit"]) && isset($_FILES["image"])){
 
         $dbClass = new Database();

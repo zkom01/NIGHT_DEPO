@@ -128,3 +128,16 @@ input[type="number"] {
 /* Styl pro text pod heslem */
 .result_text.valid { color: #2ecc71; }
 .result_text.invalid { color: #e74c3c; }
+
+.file-name-display{
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #BDD9F2; /* Vaše světle modrá */
+    border-radius: 6px;
+    background-color: rgba(0, 0, 0, 0.4); /* Jemné ztmavení pro kontrast */
+    color: #BDD9F2; /* Světle modré písmo */
+    font-size: 18px;
+    box-sizing: border-box;
+    text-align: center;
+    text-overflow: ellipsis; /* Pokud bude název moc dlouhý, uřízne se se třemi tečkami */
+}

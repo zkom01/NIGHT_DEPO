@@ -28,7 +28,9 @@
     <section class="add_form">
         <input type="text"
                class = "search_text" 
-               placeholder="Začněte psát">
+               placeholder="Začněte psát"
+               autofocus
+        >
     </section>
 
     <section>

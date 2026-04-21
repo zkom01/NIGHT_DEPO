@@ -15,8 +15,6 @@
         required
     >
 
-    <p>&nbsp;</p>
-    
     <section class="buttons-container">
         <button type="submit" class="btn btn-primary">Přihlsit</button>
         <a href="index.php" class="btn btn-secondary">Zpět</a>
