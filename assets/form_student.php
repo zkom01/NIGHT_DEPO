@@ -1,3 +1,13 @@
+<?php
+    require '../classes/CollegeDB.php';
+
+
+    $dbClass = new Database();
+    $conn = $dbClass->connectionDB();
+
+    $colleges = CollegeDB::allColleges($conn);
+?>
+
 <form method="POST">
     <input 
         type="text" 
@@ -33,7 +43,17 @@
         pattern="\S+.*"
     ><?= htmlspecialchars($life) ?></textarea>
 
-    <select 
+    <select name="college_id" id="college_id" required>
+        <option value="" disabled <?php echo empty($college_name) ? 'selected' : ''; ?>>-- Vyberte školu --</option>
+
+        <?php foreach ($colleges as $c): ?>
+            <option value="<?= htmlspecialchars($c['id']) ?>" <?php echo $college_name == $c['name'] ? 'selected' : ''; ?>>
+                <?= htmlspecialchars($c['name']) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+
+    <!-- <select 
         name="college"
         required>
         <option value="" disabled <?php echo empty($college) ? 'selected' : ''; ?>>-- Vyberte školu --</option>
@@ -41,7 +61,7 @@
         <option value="Zmijozel" <?php echo $college == 'Zmijozel' ? 'selected' : ''; ?>>Zmijozel</option>
         <option value="Havraspár" <?php echo $college == 'Havraspár' ? 'selected' : ''; ?>>Havraspár</option>
         <option value="Mrzimor" <?php echo $college == 'Mrzimor' ? 'selected' : ''; ?>>Mrzimor</option>
-    </select>
+    </select> -->
     
     <!-- <input 
         type="text" 

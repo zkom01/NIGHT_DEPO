@@ -15,10 +15,11 @@ class StudentsDB {
      * @param string $columns Seznam sloupců k výběru (výchozí vše "*").
      * @return array|string Pole s daty studenta při úspěchu, nebo textová zpráva pro uživatele.
      */
-    public static function getOneStudent($conn, $id, $columns = "*") {
-        $sql = "SELECT $columns
+    public static function getOneStudent($conn, $id) {
+        $sql = "SELECT student.*, college.name AS college_name
                 FROM student
-                WHERE id = :id";
+                LEFT JOIN college ON student.college_id = college.id
+                WHERE student.id = :id";
 
         try {
             $statement = $conn->prepare($sql);
@@ -56,16 +57,16 @@ class StudentsDB {
      * @param string $second_name Nové příjmení.
      * @param int $age Nový věk.
      * @param string $life Textový popis nebo životopis.
-     * @param string $college Název vysoké školy/koleje.
+     * @param string $college_id Id vysoké školy/koleje.
      * @return string Potvrzení o úspěchu nebo chybové hlášení.
      */
-    public static function editStudent($conn, $id, $first_name, $second_name, $age, $life, $college) {
+    public static function editStudent($conn, $id, $first_name, $second_name, $age, $life, $college_id) {
         $sql = "UPDATE student
                 SET first_name = :first_name, 
                     second_name = :second_name, 
                     age = :age, 
                     life = :life, 
-                    college = :college 
+                    college_id = :college_id 
                 WHERE id = :id";
 
         try {
@@ -76,7 +77,7 @@ class StudentsDB {
             $statement->bindValue(":second_name", $second_name, PDO::PARAM_STR);
             $statement->bindValue(":age", $age, PDO::PARAM_INT);
             $statement->bindValue(":life", $life, PDO::PARAM_STR);
-            $statement->bindValue(":college", $college, PDO::PARAM_STR);
+            $statement->bindValue(":college_id", $college_id, PDO::PARAM_STR);
             $statement->bindValue(":id", $id, PDO::PARAM_INT);
 
             // Provedení dotazu
@@ -100,12 +101,12 @@ class StudentsDB {
      * @param string $second_name Příjmení.
      * @param int $age Věk.
      * @param string $life Popis/život.
-     * @param string $college Vysoká škola.
+     * @param string $college_id Id vysoké školy.
      * @return string Potvrzení o úspěchu nebo chybové hlášení.
      */
-    public static function addStudent($conn, $first_name, $second_name, $age, $life, $college) {
-        $sql = "INSERT INTO student (first_name, second_name, age, life, college) 
-                VALUES (:first_name, :second_name, :age, :life, :college)";
+    public static function addStudent($conn, $first_name, $second_name, $age, $life, $college_id) {
+        $sql = "INSERT INTO student (first_name, second_name, age, life, college_id) 
+                VALUES (:first_name, :second_name, :age, :life, :college_id)";
 
         try {
             $statement = $conn->prepare($sql);
@@ -115,7 +116,7 @@ class StudentsDB {
             $statement->bindValue(":second_name", $second_name, PDO::PARAM_STR);
             $statement->bindValue(":age", $age, PDO::PARAM_INT);
             $statement->bindValue(":life", $life, PDO::PARAM_STR);
-            $statement->bindValue(":college", $college, PDO::PARAM_STR);
+            $statement->bindValue(":college_id", $college_id, PDO::PARAM_STR);
 
             if ($statement->execute()) {
                 return "Žák úspěšně přidán.";
@@ -171,8 +172,8 @@ class StudentsDB {
      * @param string $columns Seznam sloupců k výběru (výchozí "*").
      * @return array Pole asociativních polí se všemi studenty.
      */
-    public static function allStudents($conn, $columns = "*") {
-        $sql = "SELECT $columns
+    public static function allStudents($conn) {
+        $sql = "SELECT *
                 FROM student
                 WHERE id > 0";
 
