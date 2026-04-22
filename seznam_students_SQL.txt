@@ -1,4 +1,4 @@
-INSERT INTO student (id, first_name, second_name, age, life, college) VALUES
+INSERT INTO student (id, first_name, second_name, age, life, college_id) VALUES
                                                                (1, 'Harry', 'Potter', 11, 'Chlapec, který přežil.', 'Nebelvír'),
                                                                (2, 'Hermiona', 'Grangerová', 12, 'Nejchytřejší čarodějka svého věku.', 'Nebelvír'),
                                                                (3, 'Ron', 'Weasley', 11, 'Věrný kamarád a milovník šachu.', 'Nebelvír'),

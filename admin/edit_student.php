@@ -19,7 +19,7 @@
         $second_name = $one_student['second_name'];
         $age = $one_student['age'];
         $life = $one_student['life'];
-        $college = $one_student['college'];
+        $college_id = $one_student['college_name'];
     } else {
         Url::redirectUrl("../admin/one_student.php?id=" . $id); // přesměrujeme na stránku s detaily studenta
         exit; // ukončí skript, aby se zabránilo dalšímu vykonávání po přesměrování
@@ -32,9 +32,9 @@
         $second_name = $_POST['second_name'];
         $age = $_POST['age'];
         $life = $_POST['life'];
-        $college = $_POST['college'];
+        $college_id = $_POST['college_id'];
 
-        $result = StudentsDB::editStudent($conn, $id, $first_name, $second_name, $age, $life, $college); // zavoláme funkci pro úpravu informací o studentovi a uložíme výsledek do proměnné $result
+        $result = StudentsDB::editStudent($conn, $id, $first_name, $second_name, $age, $life, $college_id); // zavoláme funkci pro úpravu informací o studentovi a uložíme výsledek do proměnné $result
 
         if ($result) {
             Url::flashMessage($result,'success'); // Uložíme do session zprávu o úspěšném přidání studenta, aby se zobrazila na další stránce

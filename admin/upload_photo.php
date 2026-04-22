@@ -22,6 +22,14 @@ require '../classes/Url.php';
         $allowed_extension = ["jpg", "jpeg", "gif", "webp", "png", "svg"];
 
         if ($image_error === 0){
+            $check = getimagesize($image_tmp_name);
+
+            if ($check === false) {
+                Url::flashMessage('Nahraný soubor není platný obrázek.', 'error');
+                Url::redirectUrl("../admin/photos.php");
+                exit();
+            }
+
             if ($image_size > 9000000){
                 Url::flashMessage('Soubor je příliš veliký, max. 9Mb.','error');
                 Url::redirectUrl("../admin/photos.php");

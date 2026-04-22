@@ -37,7 +37,7 @@
                 <h2><?= htmlspecialchars($oneStudent['first_name']) . " " . htmlspecialchars($oneStudent['second_name']) ?></h2>
                 <p>Věk: <?= htmlspecialchars($oneStudent['age']) ?></p>
                 <p>Život: <?= htmlspecialchars($oneStudent['life']) ?></p>
-                <p>Škola: <?= htmlspecialchars($oneStudent['college']) ?></p>
+                <p>Škola: <?= htmlspecialchars($oneStudent['college_name']) ?></p>
             </div>
             
             <form method="post">

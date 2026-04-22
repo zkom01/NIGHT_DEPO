@@ -36,7 +36,7 @@
                 <h2><?= htmlspecialchars($oneStudent['first_name']) . " " . htmlspecialchars($oneStudent['second_name']) ?></h2>
                 <p>Věk: <?= htmlspecialchars($oneStudent['age']) ?></p>
                 <p>Život: <?= htmlspecialchars($oneStudent['life']) ?></p>
-                <p>Škola: <?= htmlspecialchars($oneStudent['college']) ?></p>
+                <p>Škola: <?= htmlspecialchars($oneStudent['college_name']) ?></p>
         </div>
                 <section class="buttons-container">
                     <?php if ($_SESSION['role_user_log_in']==="admin"):?>
@@ -44,6 +44,7 @@
                         <a href="delete_student.php?id=<?= $id ?>" class="btn btn-secondary">Smazat žáka</a>
                     <?php endif ?>
                     <a href="all_students.php" class="btn btn-primary">Seznam žáků</a>
+                    <!-- <a href="#" onclick="history.back(); return false;" class="btn btn-primary">Zpět</a> -->
                 </section>
 
             <?php else: ?>

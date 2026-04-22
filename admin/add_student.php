@@ -17,9 +17,9 @@
         $second_name = $_POST['second_name'];
         $age = $_POST['age'];
         $life = $_POST['life'];
-        $college = $_POST['college'];
+        $college_id = $_POST['college_id'];
 
-        $result = StudentsDB::addStudent($conn, $first_name, $second_name, $age, $life, $college);
+        $result = StudentsDB::addStudent($conn, $first_name, $second_name, $age, $life, $college_id);
 
         if ($result) {
             Url::flashMessage("$result", "success"); // Uložíme do session zprávu o úspěšném přidání studenta, aby se zobrazila na stránce s detaily studenta
