@@ -10,7 +10,7 @@
     $dbClass = new Database();
     $conn = $dbClass->connectionDB();
     
-    $students = StudentsDB::allStudents($conn, "id, first_name, second_name"); // zavoláme funkci pro získání všech žáků a uložíme výsledek do proměnné $students
+    $students = StudentsDB::allStudents($conn); // zavoláme funkci pro získání všech žáků a uložíme výsledek do proměnné $students
    
 ?>
 

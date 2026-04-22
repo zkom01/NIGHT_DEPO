@@ -22,6 +22,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'message' => $message
     ];
 
+    if (empty($name) || empty($email) || empty($message)) {
+        Url::flashMessage("Všechna pole jsou povinná.", "error");
+        Url::redirectUrl("./contact.php");
+        exit();
+    }
+    
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        Url::flashMessage("Neplatný formát emailu.", "error");
+        Url::redirectUrl("./contact.php");
+        exit();
+    }
+
     // Načtení obsahu souboru
     $template = file_get_contents('./assets/email_template.php');
 
@@ -32,42 +44,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $template
     );
 
-    if (empty($name) || empty($email) || empty($message)) {
-        Url::flashMessage ("Všechna pole jsou povinná.", "error");
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
 
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        Url::flashMessage ("Neplatný formát emailu.", "error");
+        $mail->CharSet = 'UTF-8';
+        $mail->Encoding = 'base64';
 
-    } else {
-        $mail = new PHPMailer(true);
-        try {
-            $mail->isSMTP();
+        $mail->Host = 'smtp.websupport.cz';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'zkom@zkom.cz';
+        $mail->Password = SMTP_PASS;
+        $mail->SMTPSecure = 'ssl';
+        $mail->Port = 465;
 
-            $mail->CharSet = 'UTF-8';
-            $mail->Encoding = 'base64';
+        $mail->setFrom('zkom@zkom.cz', 'Web nightdepo.zkom.cz Kontakt');
+        $mail->addAddress($email); // Kam se má e-mail doručit
+        $mail->addBCC('edzk@seznam.cz');         // kopie tobě
 
-            $mail->Host = 'smtp.websupport.cz';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'zkom@zkom.cz';
-            $mail->Password = SMTP_PASS;
-            $mail->SMTPSecure = 'ssl';
-            $mail->Port = 465;
+        $mail->isHTML(true);
+        $mail->Subject = 'Nová zpráva z webu';
+        $mail->Body = $emailBody;
+        $mail->addReplyTo($email);
 
-            $mail->setFrom('zkom@zkom.cz', 'Web nightdepo.zkom.cz Kontakt');
-            $mail->addAddress($email); // Kam se má e-mail doručit
-            $mail->addBCC('edzk@seznam.cz');         // kopie tobě
-
-            $mail->isHTML(true);
-            $mail->Subject = 'Nová zpráva z webu';
-            $mail->Body = $emailBody;
-            $mail->addReplyTo($email);
-
-            $mail->send();
-            unset($_SESSION['form_data']);
-            Url::flashMessage ("Zpráva byla úspěšně odeslána.", "success");
-        } catch (Exception $e) {
-            Url::flashMessage ("Chyba při odesílání: {$mail->ErrorInfo}", "error");
-        }
+        $mail->send();
+        unset($_SESSION['form_data']);
+        Url::flashMessage("Zpráva byla úspěšně odeslána.", "success");
+    } catch (Exception $e) {
+        Url::flashMessage("Chyba při odesílání: {$mail->ErrorInfo}", "error");
     }
     // Přesměrování po zpracování (prevence odeslání při refresh)
     Url::redirectUrl("./contact.php");

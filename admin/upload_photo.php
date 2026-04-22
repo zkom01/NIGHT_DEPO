@@ -19,7 +19,7 @@ require '../classes/Url.php';
         $image_tmp_name = $_FILES["image"]["tmp_name"];
         $image_error = $_FILES["image"]["error"];
         $image_extension = strtolower(pathinfo($image_name, PATHINFO_EXTENSION)); // vytáhne koncovku souboru
-        $allowed_extension = ["jpg", "jpeg", "gif", "webp", "png", "svg"];
+        $allowed_extension = ["jpg", "jpeg", "gif", "webp", "png"];
 
         if ($image_error === 0){
 

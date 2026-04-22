@@ -11,9 +11,22 @@
 
     $dbClass = new Database();
     $conn = $dbClass->connectionDB();
-    
-    $image_id = $_GET['id']; // získáme ID obrázku z URL
+ 
+    $image_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT); // získáme a validujeme ID obrázku z URL
+    if (!$image_id || $image_id <= 0) {
+        Url::flashMessage('Neplatné ID obrázku.', 'error');
+        Url::redirectUrl('../admin/photos.php');
+        exit;
+    }
+
     $one_image = PhotoDB::getOneImage($conn, $image_id);
+
+    if (!is_array($one_image)) {
+        Url::flashMessage('Obrázek nebyl nalezen.', 'error');
+        Url::redirectUrl('../admin/photos.php');
+        exit;
+    }
+
     $image_path = "../uploads/" . $user_id . "/" . $one_image['image_name'];
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {

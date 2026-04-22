@@ -10,7 +10,12 @@
     $dbClass = new Database();
     $conn = $dbClass->connectionDB();
 
-    $id = $_GET['id']; // získáme id z URL
+    $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT); // získáme a validujeme id z URL
+    if (!$id || $id <= 0) {
+        Url::flashMessage('Neplatné ID studenta.', 'error');
+        Url::redirectUrl('../admin/all_students.php');
+        exit;
+    }
     $oneStudent = StudentsDB::getOneStudent($conn, $id); // zavoláme funkci pro získání informací o studentovi a uložíme výsledek do proměnné $oneStudent
     
     if (!is_array($oneStudent)) {
@@ -37,24 +42,23 @@
                 <p>Věk: <?= htmlspecialchars($oneStudent['age']) ?></p>
                 <p>Život: <?= htmlspecialchars($oneStudent['life']) ?></p>
                 <p>Škola: <?= htmlspecialchars($oneStudent['college_name']) ?></p>
-        </div>
-                <section class="buttons-container">
-                    <?php if ($_SESSION['role_user_log_in']==="admin"):?>
-                        <a href="edit_student.php?id=<?= $id ?>" class="btn btn-primary">Upravit žáka</a>
-                        <a href="delete_student.php?id=<?= $id ?>" class="btn btn-secondary">Smazat žáka</a>
-                    <?php endif ?>
-                    <a href="all_students.php" class="btn btn-primary">Seznam žáků</a>
-                </section>
-
-            <?php else: ?>
-                <h2>"Student s ID <?= htmlspecialchars($id) ?> nebyl nalezen v databázi."</h2>
-                <section class="buttons-container">
-                    <a href="all_students.php" class="btn btn-primary">Zpět na seznam studentů</a>
-                </section>
             <?php endif ?>
-        
+        </div>
+        <?php if (is_array($oneStudent)): ?>
+            <section class="buttons-container">
+                <?php if ($_SESSION['role_user_log_in']==="admin"):?>
+                    <a href="edit_student.php?id=<?= $id ?>" class="btn btn-primary">Upravit žáka</a>
+                    <a href="delete_student.php?id=<?= $id ?>" class="btn btn-secondary">Smazat žáka</a>
+                <?php endif ?>
+                <a href="all_students.php" class="btn btn-primary">Seznam žáků</a>
+            </section>
+        <?php else: ?>
+            <section class="buttons-container">
+                <a href="all_students.php" class="btn btn-primary">Zpět na seznam studentů</a>
+            </section>
+        <?php endif ?>
     </section>
 
 </main>
 
-<?php require '../assets/footer.php'; ?>
+<?php require '../assets/footer.php'; ?> <!-- přidáme patičku stránky -->

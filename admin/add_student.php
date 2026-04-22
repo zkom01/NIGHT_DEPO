@@ -26,6 +26,8 @@
             $id = $conn->lastInsertId(); // získáme ID editovaného žáka 
             Url::redirectUrl("../admin/one_student.php?id=" . $id); // přesměrujeme na stránku s detaily studenta
             exit; // ukončí skript, aby se zabránilo dalšímu vykonávání po přesměrování
+        } else {
+            Url::flashMessage("Nepodařilo se přidat žáka.", "error");
         }
     }
 ?>

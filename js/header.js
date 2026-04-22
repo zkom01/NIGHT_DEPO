@@ -1,15 +1,16 @@
 /**
  * Funkce pro přepínání zdroje obrázku
  * @param {HTMLElement} element - Prvek <img>, který chceme měnit
- * @param {string} img1 - Cesta k prvnímu obrázku
- * @param {string} img2 - Cesta k druhému obrázku
+ * @param {string} img1 - Název prvního obrázku
+ * @param {string} img2 - Název druhého obrázku
  */
 function toggleImage(element, img1, img2) {
-    // includes() kontroluje, zda text v závorce je kdekoli v adrese
+    // Složku zjistíme dynamicky z aktuální src, aby cesta fungovala na root i v /admin/
+    const imgDir = element.src.substring(0, element.src.lastIndexOf('/') + 1);
     if (element.src.includes(img1)) {
-        element.src = "../img/" + img2; // Tady složíme cestu k novému obrázku
+        element.src = imgDir + img2;
     } else {
-        element.src = "../img/" + img1;
+        element.src = imgDir + img1;
     }
 }
 
@@ -24,5 +25,3 @@ menuIcon.addEventListener("click", () => {
     // Přepne ikonku pomocí funkce
     toggleImage(menuIcon, "more_white.png", "close_white.png");    
 })
-
-

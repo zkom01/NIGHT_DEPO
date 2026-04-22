@@ -11,7 +11,13 @@
     $dbClass = new Database();
     $conn = $dbClass->connectionDB();
     
-    $id = $_GET['id']; // získáme ID studenta z URL
+    $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT); // získáme a validujeme ID studenta z URL
+    if (!$id || $id <= 0) {
+        Url::flashMessage('Neplatné ID studenta.', 'error');
+        Url::redirectUrl('../admin/all_students.php');
+        exit;
+    }
+    
     $oneStudent = StudentsDB::getOneStudent($conn, $id); // zavoláme funkci pro získání informací o studentovi a uložíme výsledek do proměnné $oneStudent
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
