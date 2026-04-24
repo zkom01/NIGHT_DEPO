@@ -73,7 +73,22 @@ class PhotoDB {
             if ($statement->execute()) {
                 // Kontrola, zda bylo něco skutečně smazáno
                 if ($statement->rowCount() > 0) {
-                    unlink($image_path); // odstraní obrázek ze složky
+                    if (file_exists($image_path)) {
+                        unlink($image_path);
+                    }
+
+                    // 2. Kontrola a smazání prázdné složky
+                    $directory = dirname($image_path); // Získá cestu ke složce z cesty k souboru
+                    
+                    if (is_dir($directory)) {
+                        // scandir vrátí pole souborů. Prázdná složka obsahuje jen "." a ".."
+                        $files = array_diff(scandir($directory), array('.', '..'));
+                        
+                        if (empty($files)) {
+                            rmdir($directory);
+                        }
+                    }
+
                     return "Obrázek s ID $image_id byl úspěšně smazán.";
                 } else {
                     return "Obrázek s ID $image_id nebyl nalezen.";

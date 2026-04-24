@@ -46,7 +46,7 @@
         </div>
         <?php if (is_array($oneStudent)): ?>
             <section class="buttons-container">
-                <?php if ($_SESSION['role_user_log_in']==="admin"):?>
+                <?php if ($_SESSION['role_user_log_in']==="admin" OR $_SESSION['role_user_log_in']==="super_admin"):?>
                     <a href="edit_student.php?id=<?= $id ?>" class="btn btn-primary">Upravit žáka</a>
                     <a href="delete_student.php?id=<?= $id ?>" class="btn btn-secondary">Smazat žáka</a>
                 <?php endif ?>

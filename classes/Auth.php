@@ -28,7 +28,19 @@ class Auth {
         self::requireLogin();
 
         // Poté zkontrolujeme roli
-        if (!isset($_SESSION['role_user_log_in']) || $_SESSION['role_user_log_in'] !== 'admin') {
+        if (!isset($_SESSION['role_user_log_in']) || $_SESSION['role_user_log_in'] !== 'admin' && $_SESSION['role_user_log_in'] !== 'super_admin') {
+            Url::flashMessage('Nemáte oprávnění k této akci!', 'error');
+            Url::redirectUrl("../index.php");
+            exit();
+        }
+    }
+
+    public static function requireSuperAdmin() {
+        // Nejprve zkontrolujeme, zda je vůbec přihlášen
+        self::requireLogin();
+
+        // Poté zkontrolujeme roli
+        if (!isset($_SESSION['role_user_log_in']) || $_SESSION['role_user_log_in'] !== 'super_admin') {
             Url::flashMessage('Nemáte oprávnění k této akci!', 'error');
             Url::redirectUrl("../index.php");
             exit();

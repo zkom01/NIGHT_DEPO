@@ -95,7 +95,8 @@ class UserDB {
      * @return array Pole s daty uživatele (success => true) nebo chybová hláška.
      */
     public static function infoUser($conn, $id) {
-        $sql = "SELECT id, first_name, second_name, email FROM user 
+        $sql = "SELECT id, first_name, second_name, email, role 
+                FROM user 
                 WHERE id = :id";
 
         try {
@@ -151,6 +152,84 @@ class UserDB {
                 "success" => false,
                 "message" => "Chyba při získávání informací: " . $e->getMessage()
             ];
+        }
+    }
+
+    public static function allUser($conn) {
+        $sql = "SELECT *
+                FROM user
+                WHERE id > 0";
+
+        try {
+            $statement = $conn->prepare($sql);
+            $statement->execute();
+
+            // fetchAll(PDO::FETCH_ASSOC) nahrazuje mysqli_fetch_all($result, MYSQLI_ASSOC)
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            // Místo exit je lepší chybu zalogovat nebo vypsat kontrolovaně
+            echo "Chyba při provádění dotazu: " . $e->getMessage();
+            return []; // Vrátíme prázdné pole, aby zbytek aplikace nespadl na chybě iterace (např. ve foreach)
+        }
+    }
+
+    public static function editUser($conn, $id, $first_name, $second_name, $email, $role) {
+        $sql = "UPDATE user
+                SET first_name = :first_name, 
+                    second_name = :second_name, 
+                    email = :email, 
+                    role = :role
+                WHERE id = :id";
+
+        try {
+            $statement = $conn->prepare($sql);
+
+            // Navázání všech parametrů
+            $statement->bindValue(":first_name", $first_name, PDO::PARAM_STR);
+            $statement->bindValue(":second_name", $second_name, PDO::PARAM_STR);
+            $statement->bindValue(":email", $email, PDO::PARAM_STR);
+            $statement->bindValue(":role", $role, PDO::PARAM_STR);
+             $statement->bindValue(":id", $id, PDO::PARAM_INT);
+
+            // Provedení dotazu
+            if ($statement->execute()) {
+                return "Uživatel úspěšně upraven.";
+            } else {
+                return "Úprava uživatele se nezdařila.";
+            }
+
+        } catch (PDOException $e) {
+            // Ošetření chyby přes PDO
+            return "Chyba při úpravě uživatele: " . $e->getMessage();
+        }
+    }
+
+    public static function deleteUser($conn, $id) {
+        $sql = "DELETE FROM user
+                WHERE id = :id";
+
+        try {
+            $statement = $conn->prepare($sql);
+
+            // Navážeme ID studenta
+            $statement->bindValue(":id", $id, PDO::PARAM_INT);
+
+            // Vykonáme dotaz
+            if ($statement->execute()) {
+                // Kontrola, zda byl někdo skutečně smazán
+                if ($statement->rowCount() > 0) {
+                    return "Uživatel s ID $id byl úspěšně smazán.";
+                } else {
+                    return "Uživatel s ID $id nebyl nalezen, takže nebyl smazán.";
+                }
+            } else {
+                return "Smazání uživatele se nezdařilo.";
+            }
+
+        } catch (PDOException $e) {
+            // Ošetření chyby databáze
+            return "Chyba při mazání uživatele: " . $e->getMessage();
         }
     }
 
