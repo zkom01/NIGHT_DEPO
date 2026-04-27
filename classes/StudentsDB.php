@@ -173,9 +173,10 @@ class StudentsDB {
      * @return array Pole asociativních polí se všemi studenty.
      */
     public static function allStudents($conn) {
-        $sql = "SELECT *
+        $sql = "SELECT student.*, college.name AS college_name
                 FROM student
-                WHERE id > 0";
+                LEFT JOIN college ON student.college_id = college.id
+                WHERE student.id > 0";
 
         try {
             $statement = $conn->prepare($sql);

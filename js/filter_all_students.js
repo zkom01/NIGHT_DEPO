@@ -7,7 +7,8 @@ const studentsObjects = allOneStudentsArray.map( (oneStudent, index) => {
         id: index,
         studentName: oneStudent.querySelector('h2').textContent,
         studentHref: oneStudent.querySelector('a').href,      // uložíme jen URL, ne DOM element
-        studentLinkText: oneStudent.querySelector('a').textContent
+        studentLinkText: oneStudent.querySelector('a').textContent,
+        studentRoleText: oneStudent.querySelector('p').textContent
     }
 })
 
@@ -27,6 +28,10 @@ input.addEventListener("input", () => {
         const newH2 = document.createElement('h2');
         newH2.textContent = oneFilteredStudent.studentName;
         newDiv.append(newH2);
+
+        const newP = document.createElement('p');
+        newP.textContent = oneFilteredStudent.studentRoleText;
+        newDiv.append(newP);
 
         const newA = document.createElement('a');         // vytvoříme nový odkaz
         newA.href = oneFilteredStudent.studentHref;

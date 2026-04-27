@@ -40,7 +40,10 @@
             <div class="all_students">
                 <?php foreach ($users as $one_user): ?>
                     <div class="one_student">
-                        <h2><?= htmlspecialchars($one_user['first_name']) . " " . htmlspecialchars($one_user['second_name']) ?></h2>
+                        <h2>
+                            <?= htmlspecialchars($one_user['first_name']) . " " . htmlspecialchars($one_user['second_name']) ?>
+                        </h2>
+                        <p><?= htmlspecialchars($one_user['role'])?></p>
                         <section class="buttons-container">
                             <a href="one_user.php?id=<?= $one_user['id'] ?>" class="btn btn-primary">Detail</a>
                         </section>

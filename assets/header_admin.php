@@ -77,6 +77,7 @@
                 <?php endif ?>
                 <?php if ($_SESSION['role_user_log_in']==="super_admin"):?>
                     <li><a href="../admin/all_users.php">Seznam uživatelů</a></li>
+                    <li><a href="../admin/add_user.php">Přidat uživatele</a></li>
                 <?php endif ?>
                 <li><a href="../admin/photos.php">Fotky</a></li>
                 <li><a href="../admin/log_out.php">Odhlásit</a></li>

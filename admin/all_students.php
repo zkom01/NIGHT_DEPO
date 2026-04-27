@@ -41,6 +41,7 @@
                 <?php foreach ($students as $one_student): ?>
                     <div class="one_student">
                         <h2><?= htmlspecialchars($one_student['first_name']) . " " . htmlspecialchars($one_student['second_name']) ?></h2>
+                        <p><?= htmlspecialchars($one_student['college_name']) ?></p>
                         <section class="buttons-container">
                             <a href="one_student.php?id=<?= $one_student['id'] ?>" class="btn btn-primary">Detail</a>
                         </section>

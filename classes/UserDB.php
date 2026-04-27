@@ -126,7 +126,8 @@ class UserDB {
     }
 
     public static function checkUserbyEmail($conn, $email) {
-        $sql = "SELECT email FROM user 
+        $sql = "SELECT email 
+                FROM user 
                 WHERE email = :email";
 
         try {
