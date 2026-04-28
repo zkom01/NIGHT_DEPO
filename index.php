@@ -19,7 +19,8 @@
     <main class="index">
         <section>
             <img src="./img/ela_kruh.png" alt="">
-            <h1>NIGHT_DEPO</h1>
+            <h1>Vysoká škola ZKOM</h1>
+            <h2>(Základní komunikace a management)</h2>
             <h2>Nepřihlášen</h2>
         </section>
     </main>
