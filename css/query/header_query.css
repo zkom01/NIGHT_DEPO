@@ -4,7 +4,7 @@
         display: none;
         position: absolute;
         top: 110px;
-        background-color: #364559;
+        background-color: #0d3558;
         width: 100%;
         z-index: 99999;
     }
@@ -23,7 +23,7 @@
         width: 100%;       /* Roztáhne se do šířky */   
         text-align: center; /* zarovnání left, center, right */
         padding: 20px;   /* Odsazení dáme přímo na odkaz (zvětší klikatelnou plochu) */
-        border-bottom: 1px solid #333; /* oddělovač položek */
+        border-bottom: 1px solid #1f5f93; /* oddělovač položek */
     }
 
     .menu_icon {

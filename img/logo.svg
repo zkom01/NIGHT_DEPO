@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#1f5f93"/>
+      <stop offset="100%" stop-color="#0d3558"/>
+    </radialGradient>
+    
+    <!-- Horní cesta -->
+    <path id="topArc" d="M 90,300 A 210,210 0 0,1 510,300"/>
+    
+    <!-- Spodní cesta (zrcadlově k horní) -->
+    <path id="bottomArcFixed" d="M 90,300 A 210,210 0 0,0 510,300"/>
+  </defs>
+
+  <circle cx="300" cy="300" r="285" fill="url(#bg)" stroke="#0a2a46" stroke-width="6"/>
+  <circle cx="300" cy="300" r="255" fill="none" stroke="white" stroke-width="8"/>
+  <circle cx="300" cy="300" r="195" fill="url(#bg)" stroke="white" stroke-width="6"/>
+
+  <!-- Horní nápis - mírně posunutý nahoru, aby neseděl přímo na čáře -->
+  <text font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="white" letter-spacing="2">
+    <textPath href="#topArc" startOffset="50%" text-anchor="middle" dy="-10">VYSOKÁ ŠKOLA ZKOM</textPath>
+  </text>
+
+  <!-- Spodní nápis - dy="25" ho odsune od čáry směrem dolů -->
+  <text font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="white" letter-spacing="1">
+    <textPath href="#bottomArcFixed" startOffset="50%" text-anchor="middle" side="right" dy="4455">
+      (ZÁKLADNÍ KOMUNIKACE A MANAGEMENT)
+    </textPath>
+  </text>
+</svg>

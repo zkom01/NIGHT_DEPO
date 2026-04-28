@@ -1,7 +1,7 @@
 header {
     display: flex;
     align-items: center;
-    background-color: #364559;
+    background-color: #0d3558;
 }
 
 /* Logo a ikona menu budou mít stejnou šířku (např. 20%) */
@@ -38,7 +38,7 @@ header nav li {
 
 header nav li a {
     text-decoration: none;
-    color: #BDD9F2;
+    color: white;
     font-size: 20px;
 }
 

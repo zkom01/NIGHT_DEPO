@@ -4,7 +4,7 @@ main.index {
     justify-content: center; /* left, center, right */
     align-items: start; /* start, center, end */
     text-align: center;
-    color: #BDD9F2;
+    color: white;
     
 }
 
@@ -23,15 +23,22 @@ main.index h1 {
     font-size: 50px;
     letter-spacing: 2px;
     word-spacing: 10px;
-    color: #BDD9F2;
+    color: white;
     border: 0;
     animation: from_bottom 1s linear; /* Spustí animaci na 1 sekundy */
 }
 
-main.index h2 {
+main.index h2{
     font-size: 30px;
     letter-spacing: 2px;
-    color: #BDD9F2;
+    color: white;
+    border: 0;
+    animation: from_bottom 1s linear; /* Spustí animaci na 1 sekundy */
+}
+
+main.index h3 {
+    letter-spacing: 2px;
+    color: white;
     border: 0;
     animation: from_bottom 1s linear; /* Spustí animaci na 1 sekundy */
 }

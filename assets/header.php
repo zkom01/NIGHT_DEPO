@@ -6,7 +6,7 @@
 
     <link rel="preload" as="image" href="./img/ela_les.webp">
 
-    <link rel="shortcut icon" href="./img/ela_kruh.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">
 
     <link rel="stylesheet" href="./css/general.css?v=<?php echo filemtime('./css/general.css');?>"> 
 
@@ -52,7 +52,7 @@
     <header class="menu">
         <div class="logo">
             <a href="./index.php">
-                <img src="./img/ela_ico.png" alt="logo">
+                <img src="./img/logo.png" alt="logo">
             </a>
         </div>
 

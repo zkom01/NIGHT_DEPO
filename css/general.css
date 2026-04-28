@@ -5,12 +5,12 @@
 }
 
 a {
-    color: #BDD9F2;
+    color: white;
     font-size: 20px;
 }
 
 body {
-    background-color: #364559;
+    background-color: #0d3558;
 }
 
 main {
@@ -18,18 +18,18 @@ main {
     display: flex;
     min-height: 100vh;
     background-image: 
-        linear-gradient(rgba(54, 69, 89, 0.851), rgba(0, 0, 0, 0.544)),
-        url(../img/ela_les.webp);
+        linear-gradient(rgba(13, 53, 88, 0.851), rgba(0, 0, 0, 0.751)),
+        url(../img/background.webp);
 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-color: #364559;
+    background-color: #0d3558;
 
     /* Ostatní styly */
     flex-direction: column;
-    color: #BDD9F2;
+    color: white;
     align-items: center;
 
     
@@ -44,10 +44,10 @@ main {
 
 h1 {
     font-size: 50px;
-    color: #BDD9F2;
+    color: white;
     margin-bottom: 10px;
     margin-top: 10px;
-    border-bottom: 5px solid #BDD9F2;
+    border-bottom: 2px solid white;
     width: 100%;           /* Roztáhne element na 100 % šířky rodiče */
     box-sizing: border-box;
 }

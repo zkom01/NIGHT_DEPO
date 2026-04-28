@@ -22,9 +22,12 @@
 
     <main class="index">
         <section>
-            <img src="../img/ela_kruh.png" alt="">
-            <h1>NIGHT_DEPO</h1>
-            <h2>Přihlášen: <?= htmlspecialchars($loginUser['data']['first_name']) ?> <?= htmlspecialchars($loginUser['data']['second_name']) ?> id: <?= htmlspecialchars($loginUser['data']['id']) ?></h2><br>
+            <img src="../img/logo.png" alt="">
+            <h1>Vysoká škola ZKOM</h1>
+            <h3>(Základní komunikace a management)</h3>
+            <h2>Přihlášen: <?= htmlspecialchars($loginUser['data']['first_name']) ?> <?= htmlspecialchars($loginUser['data']['second_name']) ?> </h2>
+            <h3>ID: <?= htmlspecialchars($loginUser['data']['id']) ?></h3>
+            <h3>Práva: <?= htmlspecialchars($loginUser['data']['role']) ?></h3>
             
         </section>
     </main>

@@ -53,11 +53,11 @@
 
     <main>
         <section id="on_click" class='main_heading'>
-            <h1>Přidat žáka</h1>
+            <h1>Přidat uživatele</h1>
         </section>
 
         <section class="add_form" id="form2">
-            <?php require '../assets/form_add_student.php'; ?>
+            <?php require '../assets/form_add_user.php'; ?>
         </section>
     </main>
 

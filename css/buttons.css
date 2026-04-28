@@ -30,25 +30,27 @@
 
 /* Fialové tlačítko (Akce / Smazat / Uložit) */
 .btn-primary {
-    background-color: #8A038C;
+    background-color: #1f5f93;
+    transition: background-color 0.5s ease;
     color: white;
     padding: 10px;
 }
 
 .btn-primary:hover {
-    background-color: #a304a6;
+    background-color: #0d3558;
     transform: scale(1.02); /* Jemné zvětšení */
 }
 
 /* Modré/Světlé tlačítko (Zpět / Zrušit) */
 .btn-secondary {
     background-color: #b22f3c;
+    transition: background-color 0.5s ease;
     color: white;
     padding: 10px;
 }
 
 .btn-secondary:hover {
-    background-color: #f9061e;
+    background-color: #7a1c25;
     transform: scale(1.02); /* Jemné zvětšení */
 
 }

@@ -10,7 +10,7 @@ textarea:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0px 1000px #242e3b inset !important;
     
     /* Nastaví barvu písma, aby byla stále světle modrá */
-    -webkit-text-fill-color: #BDD9F2 !important;
+    -webkit-text-fill-color: white !important;
     
     /* Plynulý přechod, aby to nebliklo při aktivaci */
     transition: background-color 5000s ease-in-out 0s;
@@ -55,10 +55,10 @@ input[type="number"] {
 .add_form textarea {
     width: 100%;
     padding: 12px 15px;
-    border: 2px solid #BDD9F2; /* Vaše světle modrá */
+    border: 2px solid #1f5f93; /* Vaše světle modrá */
     border-radius: 6px;
     background-color: rgba(0, 0, 0, 0.2); /* Jemné ztmavení pro kontrast */
-    color: #BDD9F2; /* Světle modré písmo */
+    color: white; /* Světle modré písmo */
     font-size: 16px;
     box-sizing: border-box;
     transition: all 0.3s ease;
@@ -76,9 +76,9 @@ input[type="number"] {
 .add_form textarea:focus,
 .add_form select:focus{
     outline: none;
-    border-color: #8A038C; /* Fialová jako u H1 */
+    border-color: white;
     background-color: rgba(0, 0, 0, 0.4);
-    box-shadow: 0 0 8px rgba(138, 3, 140, 0.4);
+    box-shadow: 0 0 8px rgb(0, 0, 0);
 }
 
 /* Styl pro placeholder (text v poli před psaním) */
@@ -89,10 +89,10 @@ input[type="number"] {
 .add_form select {
     width: 100%;
     padding: 12px 15px;
-    border: 2px solid #BDD9F2;
+    border: 2px solid #1f5f93;
     border-radius: 6px;
     background-color: #242e3b; /* Stejná tmavá barva jako u autofillu */
-    color: #BDD9F2;
+    color: white;
     font-size: 16px;
     cursor: pointer;
     appearance: none; /* Odstraní nativní šipku prohlížeče (volitelné) */
@@ -104,7 +104,7 @@ input[type="number"] {
 /* Styl pro možnosti uvnitř seznamu */
 .add_form select option {
     background-color: #242e3b; /* Tmavé pozadí rozbaleného seznamu */
-    color: #BDD9F2;
+    color: white;
 }
 
 .add_form.hiden_active{
@@ -132,10 +132,10 @@ input[type="number"] {
 .file-name-display{
     width: 100%;
     padding: 12px 15px;
-    border: 2px solid #BDD9F2; /* Vaše světle modrá */
+    border: 2px solid #1f5f93;
     border-radius: 6px;
     background-color: rgba(0, 0, 0, 0.4); /* Jemné ztmavení pro kontrast */
-    color: #BDD9F2; /* Světle modré písmo */
+    color: white; /* Světle modré písmo */
     font-size: 18px;
     box-sizing: border-box;
     text-align: center;

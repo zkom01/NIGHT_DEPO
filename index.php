@@ -18,9 +18,9 @@
 
     <main class="index">
         <section>
-            <img src="./img/ela_kruh.png" alt="">
+            <img src="./img/logo.png" alt="">
             <h1>Vysoká škola ZKOM</h1>
-            <h2>(Základní komunikace a management)</h2>
+            <h3>(Základní komunikace a management)</h3>
             <h2>Nepřihlášen</h2>
         </section>
     </main>

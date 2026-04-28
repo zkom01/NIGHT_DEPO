@@ -45,7 +45,7 @@ $e_mail = $formData['email'] ?? '';
     
     <section class="buttons-container">
         <button type="submit" id="hiden" class="btn btn-primary">Vytvořit</button>
-        <a href="index.php" class="btn btn-secondary">Zpět</a>
+        <a href="all_users.php" class="btn btn-secondary">Zpět</a>
     </section>
 
 </form>
