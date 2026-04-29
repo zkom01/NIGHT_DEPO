@@ -71,7 +71,7 @@
 
         <nav>
             <ul>
-                <li><a href="../admin/all_students.php">Seznam žáků</a></li>
+                <li><a href="../admin/all_students.php">Seznam studentů</a></li>
                 <?php if ($_SESSION['role_user_log_in']==="super_admin"):?>
                     <li><a href="../admin/all_users.php">Seznam uživatelů</a></li>
                 <?php endif ?>

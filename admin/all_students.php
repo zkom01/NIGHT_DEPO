@@ -22,7 +22,7 @@
 
 <main>
     <section class="main_heading">
-        <h1>Žáci</h1>
+        <h1>Studenti</h1>
     </section>
 
     <section class="add_form">
