@@ -176,7 +176,8 @@ class StudentsDB {
         $sql = "SELECT student.*, college.name AS college_name
                 FROM student
                 LEFT JOIN college ON student.college_id = college.id
-                WHERE student.id > 0";
+                WHERE student.id > 0
+                ORDER BY student.second_name";
 
         try {
             $statement = $conn->prepare($sql);

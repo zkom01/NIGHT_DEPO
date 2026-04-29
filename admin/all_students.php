@@ -33,6 +33,12 @@
         >
     </section>
 
+    <?php if ($_SESSION['role_user_log_in']==="admin" OR $_SESSION['role_user_log_in']==="super_admin"):?>
+        <section class="buttons-container">
+            <a href="../admin/add_student.php" class="btn btn-primary">Přidat žáka</a>
+        </section>
+    <?php endif ?>
+
     <section>
         <?php if(empty($students)):?>
             <h2>Žádní žáci nebyli nalezeni.</h2>
@@ -40,7 +46,7 @@
             <div class="all_students">
                 <?php foreach ($students as $one_student): ?>
                     <div class="one_student">
-                        <h2><?= htmlspecialchars($one_student['first_name']) . " " . htmlspecialchars($one_student['second_name']) ?></h2>
+                        <h2><?= htmlspecialchars($one_student['second_name']) . " " . htmlspecialchars($one_student['first_name']) ?></h2>
                         <p><?= htmlspecialchars($one_student['college_name']) ?></p>
                         <section class="buttons-container">
                             <a href="one_student.php?id=<?= $one_student['id'] ?>" class="btn btn-primary">Detail</a>

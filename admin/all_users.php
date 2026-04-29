@@ -33,6 +33,12 @@
         >
     </section>
 
+        <?php if ($_SESSION['role_user_log_in']==="super_admin"):?>
+        <section class="buttons-container">
+            <a href="../admin/add_user.php" class="btn btn-primary">Přidat uživatele</a>
+        </section>
+    <?php endif ?>
+
     <section>
         <?php if(empty($users)):?>
             <h2>Žádní uživatelé nebyli nalezeni.</h2>
