@@ -58,12 +58,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mail->SMTPSecure = 'ssl';
         $mail->Port = 465;
 
-        $mail->setFrom('zkom@zkom.cz', 'Web nightdepo.zkom.cz Kontakt');
+        $mail->setFrom('zkom@zkom.cz', 'Web vszkom.zkom.cz Kontakt');
         $mail->addAddress($email); // Kam se má e-mail doručit
-        $mail->addBCC('edzk@seznam.cz');         // kopie tobě
+        $mail->addBCC('zkom@zkom.cz');         // kopie tobě
 
         $mail->isHTML(true);
-        $mail->Subject = 'Nová zpráva z webu';
+        $mail->Subject = 'Vyplnili jste kontaktní formulář na webu: vszkom.zkom.cz';
         $mail->Body = $emailBody;
         $mail->addReplyTo($email);
 
