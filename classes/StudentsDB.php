@@ -1,19 +1,16 @@
 <?php
 require_once __DIR__ . '/LogError.php';
 /**
- * Třída pro komplexní správu databáze studentů pomocí PDO.
+ * Třída pro správu databáze studentů pomocí PDO.
  */
 class StudentsDB {  
 
     /**
-     * Získá data jednoho konkrétního studenta podle jeho ID s logováním chyb.
-     * * * Metoda se pokusí vyhledat studenta. Pokud není nalezen nebo dojde k SQL chybě,
-     * zapíše podrobnosti do specifického logu 'oneStudent_errors' a vrátí textové hlášení.
+     * Načte data jednoho studenta podle ID, včetně názvu katedry.
      *
      * @param PDO $conn Objekt připojení k databázi.
-     * @param int $id Unikátní identifikátor studenta.
-     * @param string $columns Seznam sloupců k výběru (výchozí vše "*").
-     * @return array|string Pole s daty studenta při úspěchu, nebo textová zpráva pro uživatele.
+     * @param int $id   ID studenta.
+     * @return array|string Asociativní pole s daty studenta, nebo textová chybová zpráva.
      */
     public static function getOneStudent($conn, $id) {
         $sql = "SELECT student.*, college.name AS college_name
@@ -23,12 +20,9 @@ class StudentsDB {
 
         try {
             $statement = $conn->prepare($sql);
-            
-            // Navážeme parametry a provedeme dotaz
             $statement->bindValue(":id", $id, PDO::PARAM_INT);
             $statement->execute();
 
-            // fetch() vrátí asociativní pole, pokud záznam existuje, jinak vrátí false
             $result = $statement->fetch(PDO::FETCH_ASSOC);
 
             if ($result) {
@@ -49,16 +43,16 @@ class StudentsDB {
     }
 
     /**
-     * Upraví existující záznam studenta v databázi.
+     * Upraví existující záznam studenta.
      *
-     * @param PDO $conn Objekt připojení k databázi.
-     * @param int $id ID studenta, kterého chceme upravit.
-     * @param string $first_name Nové křestní jméno.
+     * @param PDO    $conn        Objekt připojení k databázi.
+     * @param int    $id          ID studenta.
+     * @param string $first_name  Nové křestní jméno.
      * @param string $second_name Nové příjmení.
-     * @param int $age Nový věk.
-     * @param string $life Textový popis nebo životopis.
-     * @param string $college_id Id vysoké školy/koleje.
-     * @return string Potvrzení o úspěchu nebo chybové hlášení.
+     * @param int    $age         Nový věk.
+     * @param string $life        Nový textový popis.
+     * @param int    $college_id  ID katedry/fakulty.
+     * @return string Potvrzovací nebo chybová zpráva.
      */
     public static function editStudent($conn, $id, $first_name, $second_name, $age, $life, $college_id) {
         $sql = "UPDATE student
@@ -77,7 +71,7 @@ class StudentsDB {
             $statement->bindValue(":second_name", $second_name, PDO::PARAM_STR);
             $statement->bindValue(":age", $age, PDO::PARAM_INT);
             $statement->bindValue(":life", $life, PDO::PARAM_STR);
-            $statement->bindValue(":college_id", $college_id, PDO::PARAM_STR);
+            $statement->bindValue(":college_id", $college_id, PDO::PARAM_INT);
             $statement->bindValue(":id", $id, PDO::PARAM_INT);
 
             // Provedení dotazu
@@ -96,13 +90,13 @@ class StudentsDB {
     /**
      * Přidá nového studenta do databáze.
      *
-     * @param PDO $conn Objekt připojení k databázi.
-     * @param string $first_name Křestní jméno.
+     * @param PDO    $conn        Objekt připojení k databázi.
+     * @param string $first_name  Křestní jméno.
      * @param string $second_name Příjmení.
-     * @param int $age Věk.
-     * @param string $life Popis/život.
-     * @param string $college_id Id vysoké školy.
-     * @return string Potvrzení o úspěchu nebo chybové hlášení.
+     * @param int    $age         Věk.
+     * @param string $life        Textový popis.
+     * @param int    $college_id  ID katedry/fakulty.
+     * @return string Potvrzovací nebo chybová zpráva.
      */
     public static function addStudent($conn, $first_name, $second_name, $age, $life, $college_id) {
         $sql = "INSERT INTO student (first_name, second_name, age, life, college_id) 
@@ -131,11 +125,11 @@ class StudentsDB {
     }
 
     /**
-     * Odstraní studenta z databáze podle ID.
+     * Odstraní studenta z databáze.
      *
      * @param PDO $conn Objekt připojení k databázi.
-     * @param int $id ID studenta ke smazání.
-     * @return string Potvrzení o smazání nebo informace, že záznam neexistuje.
+     * @param int $id   ID studenta ke smazání.
+     * @return string Potvrzovací nebo chybová zpráva.
      */
     public static function deleteStudent($conn, $id) {
         $sql = "DELETE FROM student
@@ -166,29 +160,25 @@ class StudentsDB {
     }
 
     /**
-     * Vrátí seznam všech studentů v databázi.
+     * Vrátí seznam všech studentů seřazený podle příjmení, včetně názvu katedry.
      *
      * @param PDO $conn Objekt připojení k databázi.
-     * @param string $columns Seznam sloupců k výběru (výchozí "*").
-     * @return array Pole asociativních polí se všemi studenty.
+     * @return array Pole asociativních polí se všemi studenty, nebo prázdné pole při chybě.
      */
     public static function allStudents($conn) {
         $sql = "SELECT student.*, college.name AS college_name
                 FROM student
                 LEFT JOIN college ON student.college_id = college.id
-                WHERE student.id > 0
-                ORDER BY student.second_name";
+                ORDER BY student.second_name ASC";
 
         try {
             $statement = $conn->prepare($sql);
             $statement->execute();
 
-            // fetchAll(PDO::FETCH_ASSOC) nahrazuje mysqli_fetch_all($result, MYSQLI_ASSOC)
             return $statement->fetchAll(PDO::FETCH_ASSOC);
 
         } catch (PDOException $e) {
-            // Místo exit je lepší chybu zalogovat nebo vypsat kontrolovaně
-            echo "Chyba při provádění dotazu: " . $e->getMessage();
+            LogError::logError("Chyba při provádění dotazu: " . $e->getMessage(),'StudentsDB_errors');
             return []; // Vrátíme prázdné pole, aby zbytek aplikace nespadl na chybě iterace (např. ve foreach)
         }
     }

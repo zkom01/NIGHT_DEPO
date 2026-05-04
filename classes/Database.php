@@ -26,7 +26,7 @@ class Database {
         $db_user = DB_USER;
         $db_password = DB_PASS;
         
-        $conn = "mysql:host=" . $db_host . ";dbname=" . $db_name . ";charset=utf8";
+        $conn = "mysql:host=" . $db_host . ";dbname=" . $db_name . ";charset=utf8mb4";
 
         try {
             $db = new PDO($conn, $db_user, $db_password);

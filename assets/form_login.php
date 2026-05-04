@@ -16,7 +16,7 @@
     >
 
     <section class="buttons-container">
-        <button type="submit" class="btn btn-primary">Přihlsit</button>
+        <button type="submit" class="btn btn-primary">Přihlásit</button>
         <a href="index.php" class="btn btn-secondary">Zpět</a>
     </section>
 

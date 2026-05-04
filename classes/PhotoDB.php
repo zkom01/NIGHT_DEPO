@@ -1,8 +1,19 @@
 <?php
 require_once __DIR__ . '/LogError.php';
 
+/**
+ * Třída pro správu obrázků uživatelů v databázi a na disku.
+ */
 class PhotoDB {
 
+    /**
+     * Uloží záznam o novém obrázku do databáze.
+     *
+     * @param PDO    $conn       Objekt připojení k databázi.
+     * @param int    $user_id    ID uživatele, kterému obrázek patří.
+     * @param string $image_name Vygenerovaný název souboru (bez cesty).
+     * @return array{success: bool, message: string}
+     */
     public static function addImg($conn, $user_id, $image_name) {
         $sql = "INSERT INTO image (user_id, image_name) 
                 VALUES (:user_id, :image_name)";
@@ -27,6 +38,13 @@ class PhotoDB {
         }
     }
 
+    /**
+     * Vrátí seznam všech obrázků daného uživatele.
+     *
+     * @param PDO $conn    Objekt připojení k databázi.
+     * @param int $user_id ID uživatele.
+     * @return array{success: bool, data?: array, message?: string}
+     */
     public static function allImgByUser($conn,$user_id) {
         $sql = "SELECT image_id, user_id, image_name 
                 FROM image 
@@ -59,31 +77,34 @@ class PhotoDB {
         }
     }
 
+    /**
+     * Smaže záznam obrázku z databáze a soubor z disku.
+     * Pokud je po smazání adresář prázdný, odstraní jej také.
+     *
+     * @param PDO    $conn       Objekt připojení k databázi.
+     * @param int    $image_id   ID obrázku ke smazání.
+     * @param string $image_path Absolutní nebo relativní cesta k souboru na disku.
+     * @return string Potvrzovací nebo chybová zpráva.
+     */
     public static function deleteImg($conn, $image_id, $image_path){
         $sql = "DELETE FROM image
                 WHERE image_id = :image_id";
 
         try {
             $statement = $conn->prepare($sql);
-
-            // Navážeme ID studenta
             $statement->bindValue(":image_id", $image_id, PDO::PARAM_INT);
 
-            // Vykonáme dotaz
             if ($statement->execute()) {
-                // Kontrola, zda bylo něco skutečně smazáno
                 if ($statement->rowCount() > 0) {
+                    // Smazání fyzického souboru
                     if (file_exists($image_path)) {
                         unlink($image_path);
                     }
 
-                    // 2. Kontrola a smazání prázdné složky
+                    // Smazání prázdné složky uživatele
                     $directory = dirname($image_path); // Získá cestu ke složce z cesty k souboru
-                    
                     if (is_dir($directory)) {
-                        // scandir vrátí pole souborů. Prázdná složka obsahuje jen "." a ".."
                         $files = array_diff(scandir($directory), array('.', '..'));
-                        
                         if (empty($files)) {
                             rmdir($directory);
                         }
@@ -98,11 +119,17 @@ class PhotoDB {
             }
 
         } catch (PDOException $e) {
-            // Ošetření chyby databáze
             return "Chyba při mazání obrázku: " . $e->getMessage();
         }
     }
 
+    /**
+     * Načte data jednoho obrázku podle jeho ID.
+     *
+     * @param PDO $conn     Objekt připojení k databázi.
+     * @param int $image_id ID obrázku.
+     * @return array|string Asociativní pole s daty obrázku, nebo textová chybová zpráva.
+     */
     public static function getOneImage($conn, $image_id) {
         $sql = "SELECT *
                 FROM image
@@ -122,7 +149,7 @@ class PhotoDB {
                 return $result; // Vrátíme pole s daty obrázku
             } else {
                 // Logujeme nenalezení záznamu jako varování
-                LogError::logError("(class PhotoDB - getOneImage) Image s ID $id nebyl nalezen v databázi.", 'getOneImage_errors');
+                LogError::logError("(class PhotoDB - getOneImage) Image s ID $image_id nebyl nalezen v databázi.", 'getOneImage_errors');
                 return "Image s ID $image_id nebyl nalezen v databázi.";
             }
 

@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/LogError.php';
 /**
  * Třída pro správu uživatelských dat v databázi přes rozhraní PDO.
  * Zajišťuje registraci, autentizaci a získávání informací o uživatelích.
@@ -6,14 +7,15 @@
 class UserDB {
 
     /**
-     * Zaregistruje nového uživatele do systému.
+     * Zaregistruje (přidá) nového uživatele do systému.
      *
-     * @param PDO $conn Objekt připojení k databázi.
-     * @param string $first_name Křestní jméno uživatele.
-     * @param string $second_name Příjmení uživatele.
-     * @param string $email Unikátní e-mailová adresa uživatele.
-     * @param string $heslo Již zahashované heslo (např. pomocí password_hash).
-     * @return array Pole s klíčem 'success' (bool) a 'message' (string).
+     * @param PDO    $conn        Objekt připojení k databázi.
+     * @param string $first_name  Křestní jméno.
+     * @param string $second_name Příjmení.
+     * @param string $email       Unikátní e-mailová adresa.
+     * @param string $heslo       Již zahashované heslo (password_hash).
+     * @param string $role        Role uživatele ('user', 'admin', 'super_admin').
+     * @return array{success: bool, message: string}
      */
     public static function addUser($conn, $first_name, $second_name, $email, $heslo, $role) {
         $sql = "INSERT INTO user (first_name, second_name, email, heslo, role) 
@@ -44,12 +46,12 @@ class UserDB {
     }
 
     /**
-     * Ověří existenci uživatele a správnost jeho hesla.
+     * Ověří existenci uživatele a správnost jeho hesla (přihlášení).
      *
-     * @param PDO $conn Objekt připojení k databázi.
-     * @param string $email E-mailová adresa zadaná při přihlášení.
-     * @param string $heslo Heslo v textové podobě (bude ověřeno proti hashi).
-     * @return array Výsledek přihlášení obsahující success, message, ID uživatele a role(admin,user).
+     * @param PDO    $conn  Objekt připojení k databázi.
+     * @param string $email E-mailová adresa.
+     * @param string $heslo Heslo v čistém textu (ověřuje se přes password_verify).
+     * @return array{success: bool, id: int|null, message: string, role: string|null}
      */
     public static function checkUser($conn, $email, $heslo) {
         $sql = "SELECT id, heslo, role FROM user 
@@ -88,11 +90,11 @@ class UserDB {
     }
 
     /**
-     * Načte základní údaje o uživateli podle jeho ID.
+     * Načte základní údaje o uživateli podle ID.
      *
      * @param PDO $conn Objekt připojení k databázi.
-     * @param int $id Unikátní identifikátor uživatele.
-     * @return array Pole s daty uživatele (success => true) nebo chybová hláška.
+     * @param int $id   ID uživatele.
+     * @return array{success: bool, data?: array, message?: string}
      */
     public static function infoUser($conn, $id) {
         $sql = "SELECT id, first_name, second_name, email, role 
@@ -125,6 +127,13 @@ class UserDB {
         }
     }
 
+    /**
+     * Ověří, zda v databázi existuje uživatel s daným e-mailem.
+     *
+     * @param PDO    $conn  Objekt připojení k databázi.
+     * @param string $email E-mailová adresa ke kontrole.
+     * @return array{success: bool, data?: array, message?: string}
+     */
     public static function checkUserbyEmail($conn, $email) {
         $sql = "SELECT email 
                 FROM user 
@@ -156,10 +165,19 @@ class UserDB {
         }
     }
 
+    /**
+     * Vrátí seznam všech uživatelů.
+     *
+     * Poznámka: nevybíráme sloupec 'heslo' – hesla se nikdy nepotřebují
+     * vypisovat v seznamu uživatelů.
+     *
+     * @param PDO $conn Objekt připojení k databázi.
+     * @return array Pole asociativních polí se všemi uživateli.
+     */
     public static function allUser($conn) {
-        $sql = "SELECT *
+        $sql = "SELECT id, first_name, second_name, email, role
                 FROM user
-                WHERE id > 0";
+                ORDER BY second_name ASC";
 
         try {
             $statement = $conn->prepare($sql);
@@ -169,12 +187,22 @@ class UserDB {
             return $statement->fetchAll(PDO::FETCH_ASSOC);
 
         } catch (PDOException $e) {
-            // Místo exit je lepší chybu zalogovat nebo vypsat kontrolovaně
-            echo "Chyba při provádění dotazu: " . $e->getMessage();
+            LogError::logError("Chyba při provádění dotazu: " . $e->getMessage(),'UserDB_errors');
             return []; // Vrátíme prázdné pole, aby zbytek aplikace nespadl na chybě iterace (např. ve foreach)
         }
     }
 
+    /**
+     * Upraví údaje existujícího uživatele.
+     *
+     * @param PDO    $conn        Objekt připojení k databázi.
+     * @param int    $id          ID uživatele ke změně.
+     * @param string $first_name  Nové křestní jméno.
+     * @param string $second_name Nové příjmení.
+     * @param string $email       Nový e-mail.
+     * @param string $role        Nová role.
+     * @return string Potvrzovací nebo chybová zpráva.
+     */
     public static function editUser($conn, $id, $first_name, $second_name, $email, $role) {
         $sql = "UPDATE user
                 SET first_name = :first_name, 
@@ -206,14 +234,19 @@ class UserDB {
         }
     }
 
+    /**
+     * Odstraní uživatele z databáze podle ID.
+     *
+     * @param PDO $conn Objekt připojení k databázi.
+     * @param int $id   ID uživatele ke smazání.
+     * @return string Potvrzovací nebo chybová zpráva.
+     */
     public static function deleteUser($conn, $id) {
         $sql = "DELETE FROM user
                 WHERE id = :id";
 
         try {
             $statement = $conn->prepare($sql);
-
-            // Navážeme ID studenta
             $statement->bindValue(":id", $id, PDO::PARAM_INT);
 
             // Vykonáme dotaz

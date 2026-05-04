@@ -5,7 +5,6 @@
     require '../classes/StudentsDB.php';
     require '../classes/Url.php';
 
-    // Auth::requireLogin();
     Auth::requireAdmin();
 
     $dbClass = new Database();

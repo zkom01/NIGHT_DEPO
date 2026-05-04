@@ -38,7 +38,7 @@
                 'email' => $email
             ];
             // Přesměrujeme zpět s parametrem pro zobrazení registrace
-            Url::redirectUrl("./admin/add_user.php");
+            Url::redirectUrl("admin/add_user.php");
             exit;
         }
     }

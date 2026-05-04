@@ -6,8 +6,6 @@
     require '../classes/Url.php';
     require '../classes/PhotoDB.php';
 
-    // Auth::requireLogin();
-    // Auth::requireAdmin();
     Auth::requireSuperAdmin();
 
     $dbClass = new Database();
@@ -26,10 +24,6 @@
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-        // $image_path = "../uploads/" . $user_id . "/" . $image_name['image_name'];
-        // PhotoDB::deleteImg($conn, $image_id, $image_path);
-
-        // Předpokládáme, že $all_images['data'] obsahuje pole z vašeho var_dump
         foreach ($all_images['data'] as $image) {
             $image_id = $image['image_id'];
             $user_id = $image['user_id'];
@@ -43,14 +37,7 @@
         }
 
         $result = UserDB::deleteUser($conn, $id); // zavoláme funkci pro smazání uživatele z databáze a uložíme výsledek do proměnné $result
-
-
-
-
-
-
-
-
+        
         Url::flashMessage($result,'error');
         Url::redirectUrl("../admin/all_users.php"); // přesměrujeme na stránku se seznamem uživatelů
         exit(); // ukončíme skript, aby se zabránilo dalšímu vykonávání kódu po přesměrování

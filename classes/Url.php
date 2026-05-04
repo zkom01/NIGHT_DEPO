@@ -1,15 +1,15 @@
 <?php
 /**
- * Třída pro práci s URL adresami.
+ * Pomocná třída pro práci s URL adresami a flash zprávami.
  */
 class Url {
 
     /**
-     * Provede přesměrování uživatele na zadanou cestu v rámci aktuální domény.
-     * Metoda automaticky detekuje použitý protokol (HTTP nebo HTTPS) a 
-     * sestaví absolutní URL adresu pro hlavičku 'Location'.
+     * Přesměruje uživatele na zadanou relativní cestu.
      *
-     * @param string $path Relativní cesta k souboru nebo endpointu (např. 'login.php' nebo 'admin/dashboard').
+     * Automaticky detekuje protokol (HTTP/HTTPS) a sestaví absolutní URL.
+     *
+     * @param string $path Relativní cesta v rámci domény (např. 'login.php' nebo 'admin/index_admin.php').
      * @return void
      */
     public static function redirectUrl($path) {
@@ -23,6 +23,13 @@ class Url {
         exit;
     }
 
+    /**
+     * Uloží flash zprávu do session pro zobrazení na další stránce.
+     *
+     * @param string $text_message Text zprávy zobrazené uživateli.
+     * @param string $type         Typ zprávy – 'success' nebo 'error' (ovlivňuje CSS třídu).
+     * @return void
+     */
     public static function flashMessage ($text_message, $type){
         $_SESSION['success_message'] = [
             'text' => $text_message,

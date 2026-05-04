@@ -53,24 +53,6 @@
         <?php endforeach; ?>
     </select>
 
-    <!-- <select 
-        name="college"
-        required>
-        <option value="" disabled <?php echo empty($college) ? 'selected' : ''; ?>>-- Vyberte školu --</option>
-        <option value="Nebelvír" <?php echo $college == 'Nebelvír' ? 'selected' : ''; ?>>Nebelvír</option>
-        <option value="Zmijozel" <?php echo $college == 'Zmijozel' ? 'selected' : ''; ?>>Zmijozel</option>
-        <option value="Havraspár" <?php echo $college == 'Havraspár' ? 'selected' : ''; ?>>Havraspár</option>
-        <option value="Mrzimor" <?php echo $college == 'Mrzimor' ? 'selected' : ''; ?>>Mrzimor</option>
-    </select> -->
-    
-    <!-- <input 
-        type="text" 
-        name="college" 
-        placeholder="Škola" 
-        value="<?= htmlspecialchars($college) ?>" 
-        required
-    > -->
-
     <section class="buttons-container">
         <button type="submit" class="btn btn-primary">Uložit</button>
         <a href="javascript:history.back()" class="btn btn-secondary">Zrušit</a>

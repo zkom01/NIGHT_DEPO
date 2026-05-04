@@ -23,13 +23,7 @@
         placeholder="Email" 
         value="<?= htmlspecialchars($email) ?>" 
     >
-
-    <!-- <input 
-        type="text" 
-        name="role" 
-        placeholder="role"
-        value="<?= htmlspecialchars($role) ?>" 
-    > -->
+    
     <select 
         name="role"
         required>
