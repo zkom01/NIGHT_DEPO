@@ -1,26 +1,26 @@
 # 🎓 Vysoká škola ZKOM – Informační systém
 
 ## 📌 Popis projektu
-Webová aplikace pro komplexní správu obsahu vysoké školy. Umožňuje administraci studentů, vysokých škol, uživatelských účtů a komunikaci přes kontaktní formulář[cite: 1].
+Webová aplikace pro komplexní správu obsahu vysoké školy. Umožňuje administraci studentů, vysokých škol, uživatelských účtů a komunikaci přes kontaktní formulář.
 
-Projekt je postaven na moderním PHP s důrazem na **objektově orientované programování (OOP)**, bezpečnost a čistotu kódu[cite: 1].
+Projekt je postaven na moderním PHP s důrazem na **objektově orientované programování (OOP)**, bezpečnost a čistotu kódu.
 
 ---
 
 ## ⚙️ Funkcionalita
-*   **Autentizace a autorizace:** Bezpečné přihlášení s rozlišením rolí (Admin vs. SuperAdmin)[cite: 1].
+*   **Autentizace a autorizace:** Bezpečné přihlášení s rozlišením rolí (Admin vs. SuperAdmin).
 *   **Správa dat (CRUD):** Plná administrace studentů (včetně nahrávání fotografií), škol a uživatelů.
-*   **Dynamický obsah:** Flexibilní správa obsahu webu[cite: 1].
-*   **Komunikace:** Kontaktní formulář pro odesílání e-mailů pomocí PHPMailer[cite: 1].
-*   **Zabezpečená administrace:** Oddělená část `/admin` s vylepšeným přesměrováním a kontrolou přístupu[cite: 1].
+*   **Dynamický obsah:** Flexibilní správa obsahu webu.
+*   **Komunikace:** Kontaktní formulář pro odesílání e-mailů pomocí PHPMailer.
+*   **Zabezpečená administrace:** Oddělená část `/admin` s vylepšeným přesměrováním a kontrolou přístupu.
 
 ---
 
 ## 🧱 Technologie
-*   **PHP 8.x (OOP):** Využití jmenných prostorů a čisté architektury tříd[cite: 1].
+*   **PHP 8.x (OOP):** Využití jmenných prostorů a čisté architektury tříd.
 *   **MySQL / MariaDB:** Databáze s kódováním `utf8mb4` pro plnou podporu diakritiky.
-*   **Frontend:** HTML5, CSS3 (Bootstrap 5), JavaScript[cite: 1].
-*   **Composer:** Správa závislostí (PHPMailer atd.)[cite: 1].
+*   **Frontend:** HTML5, CSS3 (Bootstrap 5), JavaScript.
+*   **Composer:** Správa závislostí (PHPMailer atd.).
 
 ---
 
@@ -33,9 +33,9 @@ cd projekt
 ```
 
 ### 2. Nastavení serveru
-*   PHP >= 8.0[cite: 1]
-*   MySQL / MariaDB[cite: 1]
-*   Web server (Apache / Nginx)[cite: 1]
+*   PHP >= 8.0
+*   MySQL / MariaDB
+*   Web server (Apache / Nginx)
 
 ### 3. Instalace závislostí
 ```bash
@@ -47,11 +47,11 @@ composer install
 ## 🗄️ Databáze
 
 ### Import databáze
-1.  Vytvoř novou databázi (např. `vszkom`)[cite: 1].
-2.  Importuj aktuální soubor: `vszkom_DB.sql`[cite: 1].
+1.  Vytvoř novou databázi (např. `vszkom`).
+2.  Importuj aktuální soubor: `vszkom_DB.sql`.
 
 ### Nastavení připojení
-Uprav přihlašovací údaje v souboru `classes/Database.php` (nebo v `.env`, pokud jej používáš)[cite: 1]:
+Uprav přihlašovací údaje v souboru `classes/Database.php` (nebo v `.env`, pokud jej používáš):
 ```php
 DB_HOST=localhost
 DB_NAME=vszkom
@@ -64,39 +64,39 @@ DB_PASS=heslo
 ## 🔑 Přístupové údaje (testovací)
 | Role | Email | Heslo |
 | :--- | :--- | :--- |
-| **Super Admin** | `zkom@zkom.cz` | `pondeli4381`[cite: 1] |
+| **Super Admin** | `zkom@zkom.cz` | `pondeli4381` |
 
-*(Doporučeno změnit ihned po první instalaci!)*[cite: 1]
+*(Doporučeno změnit ihned po první instalaci!)*
 
 ---
 
 ## 📁 Struktura projektu
 ```text
-/admin      → administrační rozhraní a kontrola přístupu[cite: 1]
-/assets     → statické soubory (CSS, JS, obrázky, formuláře)[cite: 1]
-/classes    → PHP třídy (StudentsDB, UserDB, PhotoDB, Auth, atd.)[cite: 1]
+/admin      → administrační rozhraní a kontrola přístupu
+/assets     → statické soubory (CSS, JS, obrázky, formuláře)
+/classes    → PHP třídy (StudentsDB, UserDB, PhotoDB, Auth, atd.)
 /uploads    → úložiště pro nahrané fotografie studentů
-/vendor     → externí knihovny spravované Composerem[cite: 1]
-index.php   → hlavní vstupní bod aplikace[cite: 1]
-login.php   → přihlašovací formulář[cite: 1]
+/vendor     → externí knihovny spravované Composerem
+index.php   → hlavní vstupní bod aplikace
+login.php   → přihlašovací formulář
 ```
 
 ---
 
 ## 🔒 Bezpečnost a refaktoring
 Aplikace prošla procesem "profi úklidu", který zahrnuje:
-*   **Prepared Statements:** Ochrana proti SQL injection u všech dotazů[cite: 1].
-*   **Error Handling:** Chyby se již nevypisují přímo, ale využívají třídu `LogError` pro tichý zápis[cite: 1].
+*   **Prepared Statements:** Ochrana proti SQL injection u všech dotazů.
+*   **Error Handling:** Chyby se již nevypisují přímo, ale využívají třídu `LogError` pro tichý zápis.
 *   **Zpřísněná Validace:** Kritické operace (mazání uživatelů) vyžadují oprávnění `requireSuperAdmin()`.
 *   **Bezpečné přesměrování:** Ochrana adresářové struktury pomocí hlaviček v `index.php` souborech.
 
 ---
 
 ## 📄 Licence
-Tento projekt je určen pro studijní účely[cite: 1].
+Tento projekt je určen pro studijní účely.
 
 ## 👨‍💻 Autor
-Zdeněk Komárek[cite: 1]
+Zdeněk Komárek
 
 ---
 
