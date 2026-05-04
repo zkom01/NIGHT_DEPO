@@ -1,5 +1,5 @@
 <form action="./upload_photo.php" method="POST" enctype="multipart/form-data">
-    <label for="chose_file" class="btn btn-primary">Vyberte obrázek</label>
+    <label for="chose_file" class="btn btn-primary">Vyberte IMG</label>
     <input novalidate 
         type="file" 
         name="image" 
