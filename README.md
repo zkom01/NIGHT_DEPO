@@ -1,9 +1,3 @@
-Díky za podklad! Propojil jsem tvůj stávající `README.md` s novými informacemi o refaktoringu, vylepšeném zabezpečení a konkrétních změnách v kódu. Výsledkem je ucelená dokumentace, která vypadá skvěle a odpovídá aktuálnímu stavu tvého projektu.
-
-Zde je finální verze:
-
----
-
 # 🎓 Vysoká škola ZKOM – Informační systém
 
 ## 📌 Popis projektu
